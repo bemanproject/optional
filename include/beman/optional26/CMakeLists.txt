@@ -33,9 +33,9 @@ install(
 
 install(
     EXPORT beman_optional26_export
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/beman/optional26/
+    DESTINATION ${INSTALL_CONFIGDIR}
     NAMESPACE Beman::Optional26::
-    FILE beman_optional26.cmake
+    FILE beman_optional26-config-targets.cmake
     EXPORT_LINK_INTERFACE_LIBRARIES
     COMPONENT beman_optional26_development
 )

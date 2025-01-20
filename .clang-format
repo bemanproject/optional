@@ -1,4 +1,7 @@
 ---
+Language:        Json
+IndentWidth:     2
+---
 Language:        Cpp
 AccessModifierOffset: -2
 AlignAfterOpenBracket: Align

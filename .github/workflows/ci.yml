@@ -13,14 +13,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {name: "Ubuntu Clang 20", os: ubuntu-24.04, toolchain: "clang-20", clang_version: 20, installed_clang_version: 17, cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
+          - {name: "Ubuntu Clang 20", os: ubuntu-24.04, toolchain: "clang-20", clang_version: 20, installed_clang_version: 17, cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Debug;Asan\" "}
           # Note: clang-19 + Asan setup causes errors on some platforms. Temporary skip some checks via .asan_options.
           - {name: "Ubuntu Clang 19", os: ubuntu-24.04, toolchain: "clang-19", clang_version: 19, installed_clang_version: 17, cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" ", asan_options: "new_delete_type_mismatch=0"}
           - {name: "Ubuntu Clang 18", os: ubuntu-24.04, toolchain: "clang-18", clang_version: 18, installed_clang_version: 17, cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
           - {name: "Ubuntu Clang 17", os: ubuntu-24.04, toolchain: "clang-17", clang_version: 17, installed_clang_version: 17, cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
           - {name: "Ubuntu GCC 14", os: ubuntu-24.04, toolchain: "gcc-14", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan;Gcov\" ", coverage: true}
-          - {name: "Ubuntu GCC 13", os: ubuntu-24.04, toolchain: "gcc-13",  cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          - {name: "Ubuntu GCC 12", os: ubuntu-24.04, toolchain: "gcc-12",  cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
+          - {name: "Ubuntu GCC 13", os: ubuntu-24.04, toolchain: "gcc-13", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
+          - {name: "Ubuntu GCC 12", os: ubuntu-24.04, toolchain: "gcc-12", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -64,6 +64,7 @@ jobs:
           [[ ${CLANG_VERSION} = 17 ]] && sudo apt-get install libc++-dev libc++1 libc++abi-dev libc++abi1
           find /usr/lib/x86_64-linux-gnu/ -name libc++.so* || true
           clang++-${CLANG_VERSION} --version
+          type clang++-${CLANG_VERSION}
       - name: Install GCC
         if: startsWith(matrix.config.name, 'Ubuntu GCC')
         run: |
@@ -77,6 +78,7 @@ jobs:
           sudo apt-get install g++-${GCC_VERSION} gcc-${GCC_VERSION}
           find /usr/lib/x86_64-linux-gnu/ -name libstdc++.so*
           g++-${GCC_VERSION} --version
+          type g++-${GCC_VERSION}
       - name: Install Gcovr
         if: matrix.config.coverage
         run: |
@@ -88,7 +90,7 @@ jobs:
           echo ${{ matrix.config.cmake_args }}
           echo ${{ matrix.config.toolchain }}
           rm -rf .build
-          cmake ${{ matrix.config.cmake_args }} -DCMAKE_INSTALL_PREFIX=.install -DCMAKE_TOOLCHAIN_FILE="etc/${{ matrix.config.toolchain }}-toolchain.cmake" -B .build -S .
+          cmake ${{ matrix.config.cmake_args }} -DCMAKE_INSTALL_PREFIX=.install -DCMAKE_PREFIX_PATH=.install -DCMAKE_TOOLCHAIN_FILE="etc/${{ matrix.config.toolchain }}-toolchain.cmake" -B .build -S .
       - name: CMake ASAN Build
         run: |
           set -x
@@ -134,3 +136,7 @@ jobs:
         with:
           file: ${{runner.workspace}}/optional26/.build/coverage.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: CMake Debug Workflow
+        run: |
+          set -x
+          cmake --workflow --preset ${{ matrix.config.toolchain }}

@@ -14,7 +14,17 @@
       "binaryDir": "${sourceDir}/.build/${presetName}",
       "installDir": "${sourceDir}/.install/${presetName}",
       "cacheVariables": {
-        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo;Debug;Tsan;Asan"
+        "CMAKE_PREFIX_PATH": {
+          "type": "path",
+          "value": "${sourceDir}/.install/${presetName}"
+        },
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo;Debug;Tsan;Asan",
+        "CMAKE_CXX_EXTENSIONS": false,
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_CXX_STANDARD_REQUIRED": true,
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+        "CMAKE_SKIP_TEST_ALL_DEPENDENCY": false
       }
     },
     {
@@ -85,38 +95,27 @@
     {
       "name": "common",
       "hidden": true,
-      "configuration": "Asan",
+      "configuration": "Debug",
       "targets": [
         "all_verify_interface_header_sets",
-        "all"
+        "all",
+        "install"
       ]
     },
     {
       "name": "system",
       "inherits": "common",
-      "configurePreset": "system",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "system"
     },
     {
       "name": "gcc-14",
       "inherits": "common",
-      "configurePreset": "gcc-14",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "gcc-14"
     },
     {
       "name": "gcc-13",
       "inherits": "common",
-      "configurePreset": "gcc-13",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "gcc-13"
     },
     {
       "name": "gcc-12",
@@ -131,45 +130,29 @@
     {
       "name": "clang-19",
       "inherits": "common",
-      "configurePreset": "clang-19",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "clang-19"
     },
     {
       "name": "clang-18",
       "inherits": "common",
-      "configurePreset": "clang-18",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "clang-18"
     },
     {
       "name": "clang-17",
       "inherits": "common",
-      "configurePreset": "clang-17",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "clang-17"
     },
     {
       "name": "clang-16",
       "inherits": "common",
-      "configurePreset": "clang-16",
-      "targets": [
-        "all_verify_interface_header_sets",
-        "all"
-      ]
+      "configurePreset": "clang-16"
     }
   ],
   "testPresets": [
     {
       "name": "common",
       "hidden": true,
-      "configuration": "Asan",
+      "configuration": "Debug",
       "output": {
         "outputOnFailure": true
       },

@@ -2,15 +2,20 @@
 #
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-cmake_minimum_required(VERSION 3.27)
+set(CMAKE_SKIP_TEST_ALL_DEPENDENCY FALSE)
 
-project(beman_optional26 VERSION 0.0.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.29...3.31)
+
+project(beman_optional26 VERSION 0.0.1 LANGUAGES CXX)
 
 # Includes
-include(CTest)
-include(FetchContent)
+include(CPack)
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
-set(TARGETS_EXPORT_NAME ${CMAKE_PROJECT_NAME}Targets)
+set(TARGET_PACKAGE_NAME ${PROJECT_NAME})
+set(TARGETS_EXPORT_NAME ${TARGET_PACKAGE_NAME}-targets)
+set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/${TARGET_PACKAGE_NAME})
 
 option(
     OPTIONAL26_ENABLE_TESTING
@@ -20,6 +25,8 @@ option(
 
 # Build the tests if enabled via the option OPTIONAL26_ENABLE_TESTING
 if(OPTIONAL26_ENABLE_TESTING)
+    include(FetchContent)
+
     # Fetch GoogleTest
     FetchContent_Declare(
         googletest
@@ -29,12 +36,15 @@ if(OPTIONAL26_ENABLE_TESTING)
             e39786088138f2749d64e9e90e0f9902daa77c40 # release-1.15.0
     )
     FetchContent_MakeAvailable(googletest)
+
+    enable_testing()
 endif()
 
 set(CMAKE_VERIFY_INTERFACE_HEADER_SETS ON)
 
 # Create the library target and named header set for beman_optional26
 add_library(beman_optional26 INTERFACE)
+add_library(Beman::Optional26::beman_optional26 ALIAS beman_optional26)
 target_sources(
     beman_optional26
     PUBLIC FILE_SET beman_optional26_headers TYPE HEADERS BASE_DIRS include
@@ -59,23 +69,24 @@ add_subdirectory(include/beman/optional26)
 
 add_subdirectory(examples)
 
-include(CMakePackageConfigHelpers)
+# install
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_PACKAGE_NAME}-config-version.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY AnyNewerVersion
+)
 
-# This will be used to replace @PACKAGE_cmakeModulesDir@
-set(cmakeModulesDir cmake/beman)
 configure_package_config_file(
     cmake/Config.cmake.in
-    BemanOptional26Config.cmake
-    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/beman/optional26/
-    PATH_VARS cmakeModulesDir
-    NO_SET_AND_CHECK_MACRO
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
+    ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_PACKAGE_NAME}-config.cmake
+    INSTALL_DESTINATION ${INSTALL_CONFIGDIR}
 )
 
 install(
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/BemanOptional26Config.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/beman/optional26/
-    COMPONENT beman_optional26_development
+    FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_PACKAGE_NAME}-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${TARGET_PACKAGE_NAME}-config-version.cmake
+    DESTINATION ${INSTALL_CONFIGDIR}
 )
 
 # Coverage
@@ -87,4 +98,5 @@ add_custom_target(
     COMMENT "Running gcovr to process coverage results"
     COMMAND mkdir -p coverage
     COMMAND gcovr --config gcovr.cfg .
+    DEPENDS test
 )

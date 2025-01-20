@@ -124,7 +124,7 @@ apt-get install -y cmake make ninja-build
 
 # Example of toolchains:
 apt-get install                           \
-  g++-14 gcc-14 gcc-13 g++-14             \
+  g++-14 gcc-14 gcc-13 g++-13             \
   clang-18 clang++-18 clang-17 clang++-17
 ```
 
@@ -145,8 +145,12 @@ Available workflow presets:
   "system"
   "gcc-14"
   "gcc-13"
+  "gcc-12"
+  "clang-20"
+  "clang-19"
   "clang-18"
   "clang-17"
+  "clang-16"
 
 # Run examples:
 $ cmake --workflow --preset gcc-14
