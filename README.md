@@ -63,7 +63,7 @@ for (const auto& i : opt) {
 ```
 
 Full code can be found in [./examples/range_loop.cpp](./examples/range_loop.cpp). Build and run instructions in
-[./examples/README.md](./examples/README.md). Or [try it on Compiler Explorer](https://godbolt.org/z/b5ThEqqhf).
+[./examples/README.md](./examples/README.md). Or try it on Compiler Explorer: [range_loop.cpp@Compiler Explorer](https://godbolt.org/z/Gc6Y9j6zf).
 
 ### optional_ref
 
