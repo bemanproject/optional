@@ -191,15 +191,15 @@ requires (std::is_constructible_v&lt;T&amp;, const U&gt; &amp;&amp; !std::is_sam
 <tr class="memdesc:a4d14bdbc1e90bdb1cf2ee0683e1ea2d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <br /></td></tr>
 <tr class="separator:a4d14bdbc1e90bdb1cf2ee0683e1ea2d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b35d69f0dbf5cc26d6483477523db82"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a3b35d69f0dbf5cc26d6483477523db82">operator=</a> (<a class="el" href="structbeman_1_1optional_1_1nullopt__t.html">nullopt_t</a>) noexcept</td></tr>
-<tr class="memdesc:a3b35d69f0dbf5cc26d6483477523db82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <br /></td></tr>
+<tr class="memdesc:a3b35d69f0dbf5cc26d6483477523db82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nullopt assignment operator.  <br /></td></tr>
 <tr class="separator:a3b35d69f0dbf5cc26d6483477523db82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad2a0e569774be08a4ee79a151cdd02e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#aad2a0e569774be08a4ee79a151cdd02e">operator=</a> (const <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;rhs) noexcept=default</td></tr>
-<tr class="memdesc:aad2a0e569774be08a4ee79a151cdd02e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <br /></td></tr>
+<tr class="memdesc:aad2a0e569774be08a4ee79a151cdd02e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <br /></td></tr>
 <tr class="separator:aad2a0e569774be08a4ee79a151cdd02e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a686f364426b25ae014e985bbb9b6f1c9"><td class="memTemplParams" colspan="2">template&lt;class U &gt; <br />
 requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference_constructs_from_temporary_v&lt;T&amp;, U&gt;)</td></tr>
 <tr class="memitem:a686f364426b25ae014e985bbb9b6f1c9"><td class="memTemplItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a686f364426b25ae014e985bbb9b6f1c9">emplace</a> (U &amp;&amp;u) noexcept(std::is_nothrow_constructible_v&lt; T &amp;, U &gt;)</td></tr>
-<tr class="memdesc:a686f364426b25ae014e985bbb9b6f1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converting copy assignment operator.  <br /></td></tr>
+<tr class="memdesc:a686f364426b25ae014e985bbb9b6f1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emplaces a new value in the optional, destroying the current one if.  <br /></td></tr>
 <tr class="separator:a686f364426b25ae014e985bbb9b6f1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1377d48c623415fccd805d77bd10a104"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a1377d48c623415fccd805d77bd10a104">swap</a> (<a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a1377d48c623415fccd805d77bd10a104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this optional with another.  <br /></td></tr>
@@ -676,7 +676,8 @@ template&lt;class F &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
+<p>The return type is the same as \tcode{std::invoke_result_t&lt;F, T&amp;&gt;}, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 
 </div>
 </div>
@@ -737,7 +738,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 </table>
 </div><div class="memdoc">
 
-<p>Converting copy assignment operator. </p>
+<p>Emplaces a new value in the optional, destroying the current one if. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">U</td><td></td></tr>
@@ -750,8 +751,8 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>optional&amp;</dd></dl>
-<p>If <code>rhs</code> has a value, assigns it to the stored value. Otherwise resets the stored value in <code>*this</code>. If <code>T&amp;</code> can be constructed from a temporary, this assignment operator is deleted to prevent binding a temporary to a reference. </p>
+<dl class="section return"><dt>Returns</dt><dd>T&amp;</dd></dl>
+<p>Constructs the stored value from <code>u</code> if it is convertible to <code>T&amp;</code>. </p>
 
 </div>
 </div>
@@ -1146,14 +1147,15 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Copy assignment operator. </p>
+<p>Assignment operator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rhs</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>optional&amp; </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>optional&amp;</dd></dl>
+<p>If <code>rhs</code> has a value, assigns it to the stored value. Otherwise resets the stored value in <code>*this</code>. </p>
 
 </div>
 </div>
@@ -1183,8 +1185,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Assignment operator. </p>
-<dl class="section return"><dt>Returns</dt><dd>optional&amp; </dd></dl>
+<p>Nullopt assignment operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>optional&amp;</dd></dl>
+<p>Destroys the current value if there is one, and leaves the optional in an empty state. </p>
 
 </div>
 </div>
@@ -1229,7 +1232,8 @@ template&lt;class F &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>optional </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>optional</dd></dl>
+<p>The return type is the same as the return type of <code>f</code>, which must return an optional type. </p>
 
 </div>
 </div>
@@ -1384,6 +1388,7 @@ template&lt;class F &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>optional&lt;std::invoke_result_t&lt;F, T&amp;&gt;&gt;</dd></dl>
+<p>The return type is the same as \tcode{std::invoke_result_t&lt;F, T&amp;&gt;}, but wrapped in an optional.</p>
 <dl class="section return"><dt>Returns</dt><dd>optional&lt;std::invoke_result_t&lt;F, T&amp;&gt;&gt; </dd></dl>
 
 </div>
