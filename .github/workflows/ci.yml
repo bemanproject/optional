@@ -10,106 +10,73 @@ on:
     - cron: '25 12 * * *'
 
 jobs:
-  build:
-    name: ${{ matrix.config.name }}
-    runs-on: ubuntu-24.04
-    container:
-      image: ghcr.io/bemanproject/testingcontainers-${{ matrix.config.tag }}
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {name: "Ubuntu Clang 21", tag: "clang:21", toolchain: "clang-21", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          - {name: "Ubuntu Clang 20", tag: "clang:20", toolchain: "clang-20", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          # Note: clang-19 + Asan setup causes errors on some platforms. Temporary skip some checks via .asan_options.
-          - {name: "Ubuntu Clang 19", tag: "clang:19", toolchain: "clang-19", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" ", asan_options: "new_delete_type_mismatch=0"}
-          - {name: "Ubuntu Clang 18", tag: "clang:18", toolchain: "clang-18", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          - {name: "Ubuntu Clang 17", tag: "clang:17", toolchain: "clang-17", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          - {name: "Ubuntu GCC 14", tag: "gcc:14", toolchain: "gcc-14", cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan;Gcov\" ", coverage: true}
-          - {name: "Ubuntu GCC 13", tag: "gcc:13", toolchain: "gcc-13",  cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-          - {name: "Ubuntu GCC 12", tag: "gcc:12", toolchain: "gcc-12",  cmake_args: "-G \"Ninja Multi-Config\" -DCMAKE_CONFIGURATION_TYPES=\"RelWithDebInfo;Asan\" "}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: 'true'
-        # If Clang 17, install a newer version of libc++ and libc++abi.
-      - name: Update packages
-        run: |
-          set -x
-          sudo apt update
-          sudo apt -y upgrade
-      - name: Install libc++
-        if: matrix.config.tag == 'clang:17'
-        run: |
-          set -x
-          sudo apt-get install -y libc++-dev libc++1 libc++abi-dev libc++abi1
-          find /usr/lib/x86_64-linux-gnu/ -name libc++.so* || true
-      - name: Install Gcovr
-        if: matrix.config.coverage
-        run: |
-          set -x
-          sudo apt-get install -y gcovr
-      - name: CMake Configure
-        run: |
-          set -x
-          echo ${{ matrix.config.cmake_args }}
-          echo ${{ matrix.config.toolchain }}
-          rm -rf .build
-          cmake ${{ matrix.config.cmake_args }} \
-            -DCMAKE_INSTALL_PREFIX=.install \
-            -DCMAKE_TOOLCHAIN_FILE="etc/${{ matrix.config.toolchain }}-toolchain.cmake" \
-            -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/use-fetch-content.cmake" \
-            -B .build \
-            -S .
-      - name: CMake ASAN Build
-        run: |
-          set -x
-          cmake --build .build --config Asan --target all_verify_interface_header_sets -- -k 0
-          cmake --build .build --config Asan --target all -- -k 0
-      - name: CMake ASAN Test
-        run: |
-          set -x
-          [[ ! -z "${{ matrix.config.asan_options }}" ]]  && export ASAN_OPTIONS="${{ matrix.config.asan_options }}"
-          ctest --build-config Asan --output-on-failure --test-dir .build
-      - name: CMake RWDI Build
-        run: |
-          set -x
-          cmake --build .build --config RelWithDebInfo --target all_verify_interface_header_sets -- -k 0
-          cmake --build .build --config RelWithDebInfo --target all -- -k 0
-      - name: CMake RWDI Test
-        run: |
-          set -x
-          ctest --build-config RelWithDebInfo --output-on-failure --test-dir .build
-      - name: Install
-        run: |
-          set -x
-          cmake --install .build --config RelWithDebInfo --component beman_optional_development --verbose
-      - name: CMake Gcov Build
-        if: matrix.config.coverage
-        run: |
-          set -x
-          cmake --build .build --config Gcov --target all_verify_interface_header_sets -- -k 0
-          cmake --build .build --config Gcov --target all -- -k 0
-      - name: CMake Gcov Test
-        if: matrix.config.coverage
-        run: |
-          set -x
-          ctest --build-config Gcov --output-on-failure --test-dir .build
-      - name: Generate Coverage
-        if: matrix.config.coverage
-        run: |
-          set -x
-          cmake --build .build --config Gcov --target process_coverage -- -k 0
-      - name: Coveralls
-        if: matrix.config.coverage
-        uses: coverallsapp/github-action@main
-        with:
-          file: .build/coverage.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+  build-and-test:
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@1.0.0
+    with:
+      matrix_config: >
+        {
+          "gcc": [
+            { "versions": ["14"],
+              "tests": [
+                { "cxxversions": ["c++26"],
+                  "tests": [
+                    { "stdlibs": ["libstdc++"],
+                      "tests": [
+                        "Debug.Default", "Release.Default", "Release.ASan",
+                        "Debug.Coverage"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            { "versions": ["13", "12"],
+              "tests": [
+                { "cxxversions": ["c++26"],
+                  "tests": [
+                    { "stdlibs": ["libstdc++"],
+                      "tests": [
+                        "Debug.Default", "Release.Default", "Release.ASan"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "clang": [
+            { "versions": ["21", "20", "18", "17"],
+              "tests": [
+                { "cxxversions": ["c++26"],
+                  "tests": [
+                    { "stdlibs": ["libstdc++", "libc++"],
+                      "tests": [
+                        "Debug.Default", "Release.Default", "Release.ASan"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            { "versions": ["19"],
+              "tests": [
+                { "cxxversions": ["c++26"],
+                  "tests": [
+                    { "stdlibs": ["libstdc++", "libc++"],
+                      "tests": [
+                        "Debug.Default", "Release.Default", "Release.ASan"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
 
   create-issue-when-fault:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [build-and-test]
     if: failure() && github.event_name == 'schedule'
     steps:
       # See https://github.com/cli/cli/issues/5075
