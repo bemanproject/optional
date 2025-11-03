@@ -6,8 +6,9 @@ var indexSectionsWithContent =
   3: "_v",
   4: "civ",
   5: "t",
-  6: "o",
-  7: "b"
+  6: "t",
+  7: "o",
+  8: "b"
 };
 
 var indexSectionNames =
@@ -18,8 +19,9 @@ var indexSectionNames =
   3: "variables",
   4: "typedefs",
   5: "enums",
-  6: "pages",
-  7: "concepts"
+  6: "enumvalues",
+  7: "pages",
+  8: "concepts"
 };
 
 var indexSectionLabels =
@@ -30,7 +32,8 @@ var indexSectionLabels =
   3: "Variables",
   4: "Typedefs",
   5: "Enumerations",
-  6: "Pages",
-  7: "Concepts"
+  6: "Enumerator",
+  7: "Pages",
+  8: "Concepts"
 };
 

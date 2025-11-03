@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('classbeman_1_1optional_1_1optional_3_0
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a9b0db4eaba704e7243205b17c8b24887"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a9b0db4eaba704e7243205b17c8b24887">value_type</a> = T</td></tr>
-<tr class="memdesc:a9b0db4eaba704e7243205b17c8b24887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the value stored in the optional.  <br /></td></tr>
+<tr class="memdesc:a9b0db4eaba704e7243205b17c8b24887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the value contained in the optional.  <br /></td></tr>
 <tr class="separator:a9b0db4eaba704e7243205b17c8b24887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa889a5dc4d4f7058a866157a6d6e7d3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#aaa889a5dc4d4f7058a866157a6d6e7d3">iterator</a> = detail::contiguous_iterator&lt; T, <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &gt;</td></tr>
 <tr class="memdesc:aaa889a5dc4d4f7058a866157a6d6e7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of the iterator for the optional.  <br /></td></tr>
@@ -199,7 +199,7 @@ requires (std::is_constructible_v&lt;T&amp;, const U&gt; &amp;&amp; !std::is_sam
 <tr class="memitem:a686f364426b25ae014e985bbb9b6f1c9"><td class="memTemplParams" colspan="2">template&lt;class U &gt; <br />
 requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference_constructs_from_temporary_v&lt;T&amp;, U&gt;)</td></tr>
 <tr class="memitem:a686f364426b25ae014e985bbb9b6f1c9"><td class="memTemplItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a686f364426b25ae014e985bbb9b6f1c9">emplace</a> (U &amp;&amp;u) noexcept(std::is_nothrow_constructible_v&lt; T &amp;, U &gt;)</td></tr>
-<tr class="memdesc:a686f364426b25ae014e985bbb9b6f1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emplaces a new value in the optional, destroying the current one if.  <br /></td></tr>
+<tr class="memdesc:a686f364426b25ae014e985bbb9b6f1c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emplaces a new value in the optional, destroying the current one if the optional is engaged.  <br /></td></tr>
 <tr class="separator:a686f364426b25ae014e985bbb9b6f1c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1377d48c623415fccd805d77bd10a104"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a1377d48c623415fccd805d77bd10a104">swap</a> (<a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;rhs) noexcept</td></tr>
 <tr class="memdesc:a1377d48c623415fccd805d77bd10a104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this optional with another.  <br /></td></tr>
@@ -211,10 +211,10 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 <tr class="memdesc:ac58a02f77ee8266e89c51336e2fba8cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the end of the optional.  <br /></td></tr>
 <tr class="separator:ac58a02f77ee8266e89c51336e2fba8cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac26bda06da7a874ed672a92ca05510bb"><td class="memItemLeft" align="right" valign="top">constexpr T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac26bda06da7a874ed672a92ca05510bb">operator-&gt;</a> () const noexcept</td></tr>
-<tr class="memdesc:ac26bda06da7a874ed672a92ca05510bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the stored value.  <br /></td></tr>
+<tr class="memdesc:ac26bda06da7a874ed672a92ca05510bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the contained value.  <br /></td></tr>
 <tr class="separator:ac26bda06da7a874ed672a92ca05510bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4267408edeffc0286ac59b6f9e015e94"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a4267408edeffc0286ac59b6f9e015e94">operator*</a> () const noexcept</td></tr>
-<tr class="memdesc:a4267408edeffc0286ac59b6f9e015e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:a4267408edeffc0286ac59b6f9e015e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:a4267408edeffc0286ac59b6f9e015e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9aa3d4990088b02ed15f7ab7c3496b3"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#af9aa3d4990088b02ed15f7ab7c3496b3">operator bool</a> () const noexcept</td></tr>
 <tr class="memdesc:af9aa3d4990088b02ed15f7ab7c3496b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the optional to a boolean value.  <br /></td></tr>
@@ -223,19 +223,19 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 <tr class="memdesc:a4b84b7e6ad97493ce06283f5282ad21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the optional has a value.  <br /></td></tr>
 <tr class="separator:a4b84b7e6ad97493ce06283f5282ad21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac5f889fe6a018361ee51ccbd2f6872b0">value</a> () const</td></tr>
-<tr class="memdesc:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stored value if there is one, otherwise throws.  <br /></td></tr>
+<tr class="memdesc:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise throws.  <br /></td></tr>
 <tr class="separator:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab60a9a544f635bd57d84f6403a016f68"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
 <tr class="memitem:ab60a9a544f635bd57d84f6403a016f68"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ab60a9a544f635bd57d84f6403a016f68">value_or</a> (U &amp;&amp;u) const</td></tr>
-<tr class="memdesc:ab60a9a544f635bd57d84f6403a016f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stored value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
+<tr class="memdesc:ab60a9a544f635bd57d84f6403a016f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
 <tr class="separator:ab60a9a544f635bd57d84f6403a016f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4169c7e8a5acbc6409d17b38495b93d"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ac4169c7e8a5acbc6409d17b38495b93d"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac4169c7e8a5acbc6409d17b38495b93d">and_then</a> (F &amp;&amp;f) const</td></tr>
-<tr class="memdesc:ac4169c7e8a5acbc6409d17b38495b93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the stored value if there is one.  <br /></td></tr>
+<tr class="memdesc:ac4169c7e8a5acbc6409d17b38495b93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:ac4169c7e8a5acbc6409d17b38495b93d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; std::invoke_result_t&lt; F, T &amp; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a4733d20c51aa637ed2567bdb5b2a1a32">transform</a> (F &amp;&amp;f) const</td></tr>
-<tr class="memdesc:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the stored value if there is one.  <br /></td></tr>
+<tr class="memdesc:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a9f7acb23bf8e0dcaa413e6e8473aa92d">or_else</a> (F &amp;&amp;f) const</td></tr>
@@ -246,7 +246,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 <tr class="separator:a889876c05fc47924dd6904a6b0165651"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &amp; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a13ba1eec1d30a8cf72bcef597fcce59f">or_else</a> (F &amp;&amp;f) const</td></tr>
-<tr class="memdesc:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
+<tr class="memdesc:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
 <tr class="separator:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -285,7 +285,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>The type of the value stored in the optional. </p>
+<p>The type of the value contained in the optional. </p>
 
 </div>
 </div>
@@ -317,7 +317,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Copy constructor. </p>
-<p>Constructs an empty optional if the rhs is empty, otherwise constructs the stored value from the rhs. </p>
+<p>Constructs an empty optional if the rhs is empty, otherwise constructs the contained value from the rhs. </p>
 
 </div>
 </div>
@@ -370,7 +370,7 @@ requires (std::is_constructible_v&lt;T&amp;, Arg&gt; &amp;&amp; !detail::referen
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">arg</td><td></td></tr>
+    <tr><td class="paramname">arg</td><td>The value to construct in-place from. </td></tr>
   </table>
   </dd>
 </dl>
@@ -459,7 +459,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&amp;&gt; &amp;&amp; !std::is_same
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -506,7 +506,7 @@ requires (std::is_constructible_v&lt;T&amp;, const U&amp;&gt; &amp;&amp; !std::i
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -553,7 +553,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !std::is_same_v&lt
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -600,7 +600,7 @@ requires (std::is_constructible_v&lt;T&amp;, const U&gt; &amp;&amp; !std::is_sam
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -630,7 +630,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>Destructor. </p>
-<p>Does not destroy the stored value, as it is a reference. </p>
+<p>Does not destroy the contained value, as it is a reference. </p>
 
 </div>
 </div>
@@ -663,21 +663,21 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Applies a function to the stored value if there is one. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
-<p>The return type is the same as \tcode{std::invoke_result_t&lt;F, T&amp;&gt;}, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 
 </div>
 </div>
@@ -738,21 +738,21 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 </table>
 </div><div class="memdoc">
 
-<p>Emplaces a new value in the optional, destroying the current one if. </p>
+<p>Emplaces a new value in the optional, destroying the current one if the optional is engaged. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type of the value to emplace. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to emplace. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T&amp;</dd></dl>
-<p>Constructs the stored value from <code>u</code> if it is convertible to <code>T&amp;</code>. </p>
+<p>Constructs the contained value from <code>u</code> if it is convertible to <code>T&amp;</code>. </p>
 
 </div>
 </div>
@@ -815,7 +815,7 @@ requires (std::is_constructible_v&lt;T&amp;, const U&amp;&gt; &amp;&amp; !std::i
 <p>Constructs an optional from another optional of type U. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The optional to construct from. </td></tr>
   </table>
   </dd>
 </dl>
@@ -825,7 +825,7 @@ requires (std::is_constructible_v&lt;T&amp;, const U&amp;&gt; &amp;&amp; !std::i
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -861,17 +861,17 @@ requires (std::is_constructible_v&lt;T&amp;, const U&gt; &amp;&amp; !std::is_sam
 <p>Constructs an optional from another optional of type U. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type contained the right hand side optional. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The optional to construct from.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -913,11 +913,11 @@ requires (std::is_constructible_v&lt;T&amp;, U&amp;&gt; &amp;&amp; !std::is_same
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The optional to construct from.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -953,7 +953,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !std::is_same_v&lt
 <p>Constructs an optional from another optional of type U. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The optional to construct from. </td></tr>
   </table>
   </dd>
 </dl>
@@ -963,7 +963,7 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !std::is_same_v&lt
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from the rhs if it has a value, otherwise constructs an empty optional. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -1005,11 +1005,11 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !(std::is_same_v&l
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to construct from.</td></tr>
   </table>
   </dd>
 </dl>
-<p>Constructs the stored value from <code>u</code> if it is convertible to <code>T&amp;</code>. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
+<p>Constructs the contained value from <code>u</code> if it is convertible to <code>T&amp;</code>. If <code>T&amp;</code> can be constructed from a temporary, this constructor is deleted to prevent binding a temporary to a reference. </p>
 
 </div>
 </div>
@@ -1089,7 +1089,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp; </dd></dl>
 
 </div>
@@ -1116,7 +1116,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a pointer to the stored value. </p>
+<p>Returns a pointer to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T* </dd></dl>
 
 </div>
@@ -1150,12 +1150,12 @@ template&lt;class T &gt; </div>
 <p>Assignment operator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The value to assign. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>optional&amp;</dd></dl>
-<p>If <code>rhs</code> has a value, assigns it to the stored value. Otherwise resets the stored value in <code>*this</code>. </p>
+<p>If <code>rhs</code> has a value, assigns it to the contained value. Otherwise resets the contained value in <code>*this</code>. </p>
 
 </div>
 </div>
@@ -1222,13 +1222,13 @@ template&lt;class F &gt; </div>
 <p>Calls a function if the optional is empty. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
@@ -1265,7 +1265,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
+<p>Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td></td></tr>
@@ -1338,7 +1338,7 @@ template&lt;class T &gt; </div>
 <p>Swaps the contents of this optional with another. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The value to swap with. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1373,22 +1373,22 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Applies a function to the stored value if there is one. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <p>Transforms the value contained in the optional, if it exists.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>optional&lt;std::invoke_result_t&lt;F, T&amp;&gt;&gt;</dd></dl>
-<p>The return type is the same as \tcode{std::invoke_result_t&lt;F, T&amp;&gt;}, but wrapped in an optional.</p>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional.</p>
 <dl class="section return"><dt>Returns</dt><dd>optional&lt;std::invoke_result_t&lt;F, T&amp;&gt;&gt; </dd></dl>
 
 </div>
@@ -1415,7 +1415,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the stored value if there is one, otherwise throws. </p>
+<p>Returns the contained value if there is one, otherwise throws. </p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp; </dd></dl>
 
 </div>
@@ -1448,16 +1448,16 @@ template&lt;class U &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the stored value if there is one, otherwise returns <code>u</code>. </p>
+<p>Returns the contained value if there is one, otherwise returns <code>u</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type of the alternate value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to return in the empty case </td></tr>
   </table>
   </dd>
 </dl>

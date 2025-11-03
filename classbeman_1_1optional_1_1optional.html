@@ -106,12 +106,15 @@ $(document).ready(function(){initNavTree('classbeman_1_1optional_1_1optional.htm
 </div><!--header-->
 <div class="contents">
 
+<p>Optional Objects.  
+ <a href="classbeman_1_1optional_1_1optional.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="optional_8hpp_source.html">optional.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aefbcf8b894d0bf8d5bbe22cd12f2765f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#aefbcf8b894d0bf8d5bbe22cd12f2765f">value_type</a> = T</td></tr>
-<tr class="memdesc:aefbcf8b894d0bf8d5bbe22cd12f2765f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for the value type stored in the optional.  <br /></td></tr>
+<tr class="memdesc:aefbcf8b894d0bf8d5bbe22cd12f2765f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for the value type contained in the optional.  <br /></td></tr>
 <tr class="separator:aefbcf8b894d0bf8d5bbe22cd12f2765f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a42c36423ec8c924fd5844b9bccd94c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">iterator</a> = detail::contiguous_iterator&lt; T, <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &gt;</td></tr>
 <tr class="memdesc:a9a42c36423ec8c924fd5844b9bccd94c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for the iterator type of the optional.  <br /></td></tr>
@@ -146,11 +149,10 @@ requires std::is_constructible_v&lt;T, Args...&gt;</td></tr>
 <tr class="memitem:af27e6b6d80787e82db114a3be987512f"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#af27e6b6d80787e82db114a3be987512f">optional</a> (<a class="el" href="structbeman_1_1optional_1_1in__place__t.html">in_place_t</a>, Args &amp;&amp;... args)</td></tr>
 <tr class="memdesc:af27e6b6d80787e82db114a3be987512f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the value in-place using the given arguments.  <br /></td></tr>
 <tr class="separator:af27e6b6d80787e82db114a3be987512f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af75c591a86a8ee7d0185e67189234039"><td class="memTemplParams" colspan="2"><a id="af75c591a86a8ee7d0185e67189234039" name="af75c591a86a8ee7d0185e67189234039"></a>
-template&lt;class U , class... Args&gt; <br />
+<tr class="memitem:af75c591a86a8ee7d0185e67189234039"><td class="memTemplParams" colspan="2">template&lt;class U , class... Args&gt; <br />
 requires std::is_constructible_v&lt;T, std::initializer_list&lt;U&gt;&amp;, Args&amp;&amp;...&gt;</td></tr>
-<tr class="memitem:af75c591a86a8ee7d0185e67189234039"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>optional</b> (<a class="el" href="structbeman_1_1optional_1_1in__place__t.html">in_place_t</a>, std::initializer_list&lt; U &gt; il, Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:af75c591a86a8ee7d0185e67189234039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the value in-place using the given arguments. <br /></td></tr>
+<tr class="memitem:af75c591a86a8ee7d0185e67189234039"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#af75c591a86a8ee7d0185e67189234039">optional</a> (<a class="el" href="structbeman_1_1optional_1_1in__place__t.html">in_place_t</a>, std::initializer_list&lt; U &gt; il, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:af75c591a86a8ee7d0185e67189234039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the value in-place using the given arguments.  <br /></td></tr>
 <tr class="separator:af75c591a86a8ee7d0185e67189234039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4146fd29dd405c306bb8a30fba3a989"><td class="memTemplParams" colspan="2">template&lt;class U  = T&gt; <br />
 requires detail::enable_forward_value&lt;T, U&gt;</td></tr>
@@ -197,18 +199,18 @@ constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional<
 <tr class="memitem:adb7fe1c0bcc29a9c97c3410c9537ff70"><td class="memTemplParams" colspan="2">template&lt;class U  = T&gt; <br />
 requires detail::enable_assign_forward&lt;T, U&gt;</td></tr>
 <tr class="memitem:adb7fe1c0bcc29a9c97c3410c9537ff70"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#adb7fe1c0bcc29a9c97c3410c9537ff70">operator=</a> (U &amp;&amp;u)</td></tr>
-<tr class="memdesc:adb7fe1c0bcc29a9c97c3410c9537ff70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the stored value from <code>u</code>, destroying the old value if there.  <br /></td></tr>
+<tr class="memdesc:adb7fe1c0bcc29a9c97c3410c9537ff70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the contained value from <code>u</code>, destroying the old value if there.  <br /></td></tr>
 <tr class="separator:adb7fe1c0bcc29a9c97c3410c9537ff70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7163581d56c09cbdfb3ee228a40562d"><td class="memTemplParams" colspan="2">template&lt;class U &gt; <br />
 requires (detail::enable_assign_from_other&lt;T, U, const U&amp;&gt;)</td></tr>
 <tr class="memitem:aa7163581d56c09cbdfb3ee228a40562d"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#aa7163581d56c09cbdfb3ee228a40562d">operator=</a> (const <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; U &gt; &amp;rhs)</td></tr>
-<tr class="memdesc:aa7163581d56c09cbdfb3ee228a40562d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the stored value from <code>rhs</code> if it has one, destroying the old value if there.  <br /></td></tr>
+<tr class="memdesc:aa7163581d56c09cbdfb3ee228a40562d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the contained value from <code>rhs</code> if it has one, destroying the old value if there.  <br /></td></tr>
 <tr class="separator:aa7163581d56c09cbdfb3ee228a40562d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaeb315b6e8cb099968dd7fc51634c3e"><td class="memTemplParams" colspan="2"><a id="aaaeb315b6e8cb099968dd7fc51634c3e" name="aaaeb315b6e8cb099968dd7fc51634c3e"></a>
 template&lt;class U &gt; <br />
 requires (detail::enable_assign_from_other&lt;T, U, U&gt;)</td></tr>
 <tr class="memitem:aaaeb315b6e8cb099968dd7fc51634c3e"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; U &gt; &amp;&amp;rhs)</td></tr>
-<tr class="memdesc:aaaeb315b6e8cb099968dd7fc51634c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the stored value from <code>rhs</code> if it has one, destroying the old value if there. <br /></td></tr>
+<tr class="memdesc:aaaeb315b6e8cb099968dd7fc51634c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns the contained value from <code>rhs</code> if it has one, destroying the old value if there. <br /></td></tr>
 <tr class="separator:aaaeb315b6e8cb099968dd7fc51634c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac20ea14c0765679cb2bf4c74b5c82bd5"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
 <tr class="memitem:ac20ea14c0765679cb2bf4c74b5c82bd5"><td class="memTemplItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ac20ea14c0765679cb2bf4c74b5c82bd5">emplace</a> (Args &amp;&amp;... args)</td></tr>
@@ -221,35 +223,33 @@ requires (detail::enable_assign_from_other&lt;T, U, U&gt;)</td></tr>
 <tr class="memitem:a3aa22eefcb8377a2ff2c3eaba050cc23"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a3aa22eefcb8377a2ff2c3eaba050cc23">swap</a> (<a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a> &amp;rhs) noexcept(std::is_nothrow_move_constructible&lt; T &gt;<a class="el" href="classbeman_1_1optional_1_1optional.html#a403cec6d7cc62ed49dc6c1a932da6de3">::value</a> &amp;&amp;std::is_nothrow_swappable&lt; T &gt;<a class="el" href="classbeman_1_1optional_1_1optional.html#a403cec6d7cc62ed49dc6c1a932da6de3">::value</a>)</td></tr>
 <tr class="memdesc:a3aa22eefcb8377a2ff2c3eaba050cc23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps this optional with the other.  <br /></td></tr>
 <tr class="separator:a3aa22eefcb8377a2ff2c3eaba050cc23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b80251c803ff7de9e28e4e3cf16a6f2"><td class="memItemLeft" align="right" valign="top"><a id="a8b80251c803ff7de9e28e4e3cf16a6f2" name="a8b80251c803ff7de9e28e4e3cf16a6f2"></a>
-constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () noexcept</td></tr>
-<tr class="memdesc:a8b80251c803ff7de9e28e4e3cf16a6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the beginning of the optional. <br /></td></tr>
+<tr class="memitem:a8b80251c803ff7de9e28e4e3cf16a6f2"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a8b80251c803ff7de9e28e4e3cf16a6f2">begin</a> () noexcept</td></tr>
+<tr class="memdesc:a8b80251c803ff7de9e28e4e3cf16a6f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the beginning of the optional.  <br /></td></tr>
 <tr class="separator:a8b80251c803ff7de9e28e4e3cf16a6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07d0a37da89665a15c7910afbf8e199c"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a553d0aad53c04c380b27e83d9d43cbc5">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a07d0a37da89665a15c7910afbf8e199c">begin</a> () const noexcept</td></tr>
 <tr class="memdesc:a07d0a37da89665a15c7910afbf8e199c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the beginning of the optional.  <br /></td></tr>
 <tr class="separator:a07d0a37da89665a15c7910afbf8e199c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59208fb74a69302b36ab42fa4d61ce74"><td class="memItemLeft" align="right" valign="top"><a id="a59208fb74a69302b36ab42fa4d61ce74" name="a59208fb74a69302b36ab42fa4d61ce74"></a>
-constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () noexcept</td></tr>
-<tr class="memdesc:a59208fb74a69302b36ab42fa4d61ce74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the end of the optional. <br /></td></tr>
+<tr class="memitem:a59208fb74a69302b36ab42fa4d61ce74"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a59208fb74a69302b36ab42fa4d61ce74">end</a> () noexcept</td></tr>
+<tr class="memdesc:a59208fb74a69302b36ab42fa4d61ce74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the end of the optional.  <br /></td></tr>
 <tr class="separator:a59208fb74a69302b36ab42fa4d61ce74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6746328dd0c1ff4e363f7a5e89e910e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html#a553d0aad53c04c380b27e83d9d43cbc5">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ab6746328dd0c1ff4e363f7a5e89e910e">end</a> () const noexcept</td></tr>
 <tr class="memdesc:ab6746328dd0c1ff4e363f7a5e89e910e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the end of the optional.  <br /></td></tr>
 <tr class="separator:ab6746328dd0c1ff4e363f7a5e89e910e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa75425844992799ee8cfb7f1ab7c84ce"><td class="memItemLeft" align="right" valign="top"><a id="aa75425844992799ee8cfb7f1ab7c84ce" name="aa75425844992799ee8cfb7f1ab7c84ce"></a>
 constexpr const T *&#160;</td><td class="memItemRight" valign="bottom"><b>operator-&gt;</b> () const</td></tr>
-<tr class="memdesc:aa75425844992799ee8cfb7f1ab7c84ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the stored value. <br /></td></tr>
+<tr class="memdesc:aa75425844992799ee8cfb7f1ab7c84ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the contained value. <br /></td></tr>
 <tr class="separator:aa75425844992799ee8cfb7f1ab7c84ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11514681edbb160cf2efc43ef55c5528"><td class="memItemLeft" align="right" valign="top">constexpr T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a11514681edbb160cf2efc43ef55c5528">operator-&gt;</a> ()</td></tr>
-<tr class="memdesc:a11514681edbb160cf2efc43ef55c5528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the stored value.  <br /></td></tr>
+<tr class="memdesc:a11514681edbb160cf2efc43ef55c5528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the contained value.  <br /></td></tr>
 <tr class="separator:a11514681edbb160cf2efc43ef55c5528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6278cfdf226813b44e48bcca9e9c160"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#af6278cfdf226813b44e48bcca9e9c160">operator*</a> () &amp;</td></tr>
-<tr class="memdesc:af6278cfdf226813b44e48bcca9e9c160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:af6278cfdf226813b44e48bcca9e9c160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:af6278cfdf226813b44e48bcca9e9c160"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2066b2ca9b88bda6f8a31f75c334b00"><td class="memItemLeft" align="right" valign="top">constexpr const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ae2066b2ca9b88bda6f8a31f75c334b00">operator*</a> () const &amp;</td></tr>
-<tr class="memdesc:ae2066b2ca9b88bda6f8a31f75c334b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:ae2066b2ca9b88bda6f8a31f75c334b00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:ae2066b2ca9b88bda6f8a31f75c334b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8cf9e9651cd496ce32f7b7bcb810874"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#aa8cf9e9651cd496ce32f7b7bcb810874">operator*</a> () &amp;&amp;</td></tr>
-<tr class="memdesc:aa8cf9e9651cd496ce32f7b7bcb810874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:aa8cf9e9651cd496ce32f7b7bcb810874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:aa8cf9e9651cd496ce32f7b7bcb810874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b3f8f20f9fc411b656ebcc9c2a45fbc"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a2b3f8f20f9fc411b656ebcc9c2a45fbc">operator bool</a> () const noexcept</td></tr>
 <tr class="memdesc:a2b3f8f20f9fc411b656ebcc9c2a45fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the optional to a boolean indicating whether it has a value.  <br /></td></tr>
@@ -258,70 +258,70 @@ constexpr const T *&#160;</td><td class="memItemRight" valign="bottom"><b>operat
 <tr class="memdesc:a30353c697fc17e7b421cde25cab03d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the optional has a value.  <br /></td></tr>
 <tr class="separator:a30353c697fc17e7b421cde25cab03d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403cec6d7cc62ed49dc6c1a932da6de3"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a403cec6d7cc62ed49dc6c1a932da6de3">value</a> () &amp;</td></tr>
-<tr class="memdesc:a403cec6d7cc62ed49dc6c1a932da6de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:a403cec6d7cc62ed49dc6c1a932da6de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:a403cec6d7cc62ed49dc6c1a932da6de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78ed5dfa0c06503c1a682e6790727498"><td class="memItemLeft" align="right" valign="top">constexpr const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a78ed5dfa0c06503c1a682e6790727498">value</a> () const &amp;</td></tr>
-<tr class="memdesc:a78ed5dfa0c06503c1a682e6790727498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:a78ed5dfa0c06503c1a682e6790727498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:a78ed5dfa0c06503c1a682e6790727498"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad03f9b933291169eeba5e53cdfd50867"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ad03f9b933291169eeba5e53cdfd50867">value</a> () &amp;&amp;</td></tr>
-<tr class="memdesc:ad03f9b933291169eeba5e53cdfd50867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:ad03f9b933291169eeba5e53cdfd50867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:ad03f9b933291169eeba5e53cdfd50867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
 <tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a40912ec1c3bc9bb333b724fe1be49d02">value_or</a> (U &amp;&amp;u) const &amp;</td></tr>
-<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
 <tr class="separator:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
 <tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a272e133b18664a90945451e6bf3c5697">value_or</a> (U &amp;&amp;u) &amp;&amp;</td></tr>
-<tr class="memdesc:a272e133b18664a90945451e6bf3c5697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the stored value.  <br /></td></tr>
+<tr class="memdesc:a272e133b18664a90945451e6bf3c5697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
 <tr class="separator:a272e133b18664a90945451e6bf3c5697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a4e2cee231a67ca48f82715cdd334bf94">and_then</a> (F &amp;&amp;f) &amp;</td></tr>
-<tr class="memdesc:a4e2cee231a67ca48f82715cdd334bf94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value.  <br /></td></tr>
+<tr class="memdesc:a4e2cee231a67ca48f82715cdd334bf94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a4e2cee231a67ca48f82715cdd334bf94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09d36e0c91acecd4dd1983c8159f8c85"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a09d36e0c91acecd4dd1983c8159f8c85"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a09d36e0c91acecd4dd1983c8159f8c85">and_then</a> (F &amp;&amp;f) &amp;&amp;</td></tr>
-<tr class="memdesc:a09d36e0c91acecd4dd1983c8159f8c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value.  <br /></td></tr>
+<tr class="memdesc:a09d36e0c91acecd4dd1983c8159f8c85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a09d36e0c91acecd4dd1983c8159f8c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab90dcd5e2580af7c3e885428a939cfe4"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ab90dcd5e2580af7c3e885428a939cfe4"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ab90dcd5e2580af7c3e885428a939cfe4">and_then</a> (F &amp;&amp;f) const &amp;</td></tr>
-<tr class="memdesc:ab90dcd5e2580af7c3e885428a939cfe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value.  <br /></td></tr>
+<tr class="memdesc:ab90dcd5e2580af7c3e885428a939cfe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:ab90dcd5e2580af7c3e885428a939cfe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f777fa3e547b9e56ad0633bc8714133"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a1f777fa3e547b9e56ad0633bc8714133"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a1f777fa3e547b9e56ad0633bc8714133">and_then</a> (F &amp;&amp;f) const &amp;&amp;</td></tr>
-<tr class="memdesc:a1f777fa3e547b9e56ad0633bc8714133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value.  <br /></td></tr>
+<tr class="memdesc:a1f777fa3e547b9e56ad0633bc8714133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a1f777fa3e547b9e56ad0633bc8714133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ab409242d8b0b3ed4fda5d4c66e3e2db6">transform</a> (F &amp;&amp;f) &amp;</td></tr>
-<tr class="memdesc:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value.  <br /></td></tr>
+<tr class="memdesc:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value.  <br /></td></tr>
 <tr class="separator:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a6989e2a3dc4e30dd38a1a8d689616f05">transform</a> (F &amp;&amp;f) &amp;&amp;</td></tr>
-<tr class="memdesc:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value.  <br /></td></tr>
+<tr class="memdesc:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value.  <br /></td></tr>
 <tr class="separator:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7aae84b3e296d65d93b132bca8e79dc"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ae7aae84b3e296d65d93b132bca8e79dc"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ae7aae84b3e296d65d93b132bca8e79dc">transform</a> (F &amp;&amp;f) const &amp;</td></tr>
-<tr class="memdesc:ae7aae84b3e296d65d93b132bca8e79dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value.  <br /></td></tr>
+<tr class="memdesc:ae7aae84b3e296d65d93b132bca8e79dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value.  <br /></td></tr>
 <tr class="separator:ae7aae84b3e296d65d93b132bca8e79dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ae686bd0b6e17116c73a1c2aa2cae116d">transform</a> (F &amp;&amp;f) const &amp;&amp;</td></tr>
-<tr class="memdesc:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value.  <br /></td></tr>
+<tr class="memdesc:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value.  <br /></td></tr>
 <tr class="separator:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d50f38b621a7659c60d33b1d1d83340"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a8d50f38b621a7659c60d33b1d1d83340"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a8d50f38b621a7659c60d33b1d1d83340">or_else</a> (F &amp;&amp;f) const &amp;</td></tr>
-<tr class="memdesc:a8d50f38b621a7659c60d33b1d1d83340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the stored value if it has one, or the result of applying <code>f</code> to the optional if it does not.  <br /></td></tr>
+<tr class="memdesc:a8d50f38b621a7659c60d33b1d1d83340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of applying <code>f</code> to the optional if it does not.  <br /></td></tr>
 <tr class="separator:a8d50f38b621a7659c60d33b1d1d83340"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab41ce777f29339fd953ffae0c7ac963f"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ab41ce777f29339fd953ffae0c7ac963f"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ab41ce777f29339fd953ffae0c7ac963f">or_else</a> (F &amp;&amp;f) &amp;&amp;</td></tr>
-<tr class="memdesc:ab41ce777f29339fd953ffae0c7ac963f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the stored value if it has one, or the result of applying <code>f</code> to the optional if it does not.  <br /></td></tr>
+<tr class="memdesc:ab41ce777f29339fd953ffae0c7ac963f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>f</code> if it does not.  <br /></td></tr>
 <tr class="separator:ab41ce777f29339fd953ffae0c7ac963f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aecd22269bb50bb1b0ca38a893f8db9"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a1aecd22269bb50bb1b0ca38a893f8db9">reset</a> () noexcept</td></tr>
-<tr class="memdesc:a1aecd22269bb50bb1b0ca38a893f8db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the optional to an empty state, destroying the stored value if there is one.  <br /></td></tr>
+<tr class="memdesc:a1aecd22269bb50bb1b0ca38a893f8db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the optional to an empty state, destroying the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a1aecd22269bb50bb1b0ca38a893f8db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a143d2cbf17edbfcc85abdb78f666dc77"><td class="memTemplParams" colspan="2"><a id="a143d2cbf17edbfcc85abdb78f666dc77" name="a143d2cbf17edbfcc85abdb78f666dc77"></a>
 template&lt;class U &gt; <br />
 requires detail::enable_forward_value&lt;T, U&gt;</td></tr>
 <tr class="memitem:a143d2cbf17edbfcc85abdb78f666dc77"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>optional</b> (U &amp;&amp;u)</td></tr>
-<tr class="memdesc:a143d2cbf17edbfcc85abdb78f666dc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the stored value with <code>u</code>. <br /></td></tr>
+<tr class="memdesc:a143d2cbf17edbfcc85abdb78f666dc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the contained value with <code>u</code>. <br /></td></tr>
 <tr class="separator:a143d2cbf17edbfcc85abdb78f666dc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14058dbc4c83fac2455df7488a73b21a"><td class="memTemplParams" colspan="2"><a id="a14058dbc4c83fac2455df7488a73b21a" name="a14058dbc4c83fac2455df7488a73b21a"></a>
 template&lt;class U &gt; <br />
@@ -350,7 +350,7 @@ requires (detail::enable_assign_from_other&lt;T, U, U&gt;)</td></tr>
 <tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplParams" colspan="2"><a id="a40912ec1c3bc9bb333b724fe1be49d02" name="a40912ec1c3bc9bb333b724fe1be49d02"></a>
 template&lt;class U &gt; </td></tr>
 <tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value_or</b> (U &amp;&amp;u) const &amp;</td></tr>
-<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stored value if there is one, otherwise returns <code>u</code> <br /></td></tr>
+<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code> <br /></td></tr>
 <tr class="separator:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplParams" colspan="2"><a id="a272e133b18664a90945451e6bf3c5697" name="a272e133b18664a90945451e6bf3c5697"></a>
 template&lt;class U &gt; </td></tr>
@@ -374,7 +374,7 @@ template&lt;class F &gt; </td></tr>
 <tr class="separator:a1f777fa3e547b9e56ad0633bc8714133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ab409242d8b0b3ed4fda5d4c66e3e2db6">transform</a> (F &amp;&amp;f) &amp;</td></tr>
-<tr class="memdesc:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carries out some operation on the stored object if there is one.  <br /></td></tr>
+<tr class="memdesc:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carries out some operation on the contained object if there is one.  <br /></td></tr>
 <tr class="separator:ab409242d8b0b3ed4fda5d4c66e3e2db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a6989e2a3dc4e30dd38a1a8d689616f05"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a6989e2a3dc4e30dd38a1a8d689616f05">transform</a> (F &amp;&amp;f) &amp;&amp;</td></tr>
@@ -387,21 +387,16 @@ template&lt;class F &gt; </td></tr>
 <tr class="separator:ae686bd0b6e17116c73a1c2aa2cae116d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5afab34c22775a484fca0709156ef6c2"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a5afab34c22775a484fca0709156ef6c2"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a5afab34c22775a484fca0709156ef6c2">or_else</a> (F &amp;&amp;f) const &amp;</td></tr>
-<tr class="memdesc:a5afab34c22775a484fca0709156ef6c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
+<tr class="memdesc:a5afab34c22775a484fca0709156ef6c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
 <tr class="separator:a5afab34c22775a484fca0709156ef6c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a574c5b3ae760ff61d58fa37ef3a93133"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a574c5b3ae760ff61d58fa37ef3a93133"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a574c5b3ae760ff61d58fa37ef3a93133">or_else</a> (F &amp;&amp;f) &amp;&amp;</td></tr>
-<tr class="memdesc:a574c5b3ae760ff61d58fa37ef3a93133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
+<tr class="memdesc:a574c5b3ae760ff61d58fa37ef3a93133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
 <tr class="separator:a574c5b3ae760ff61d58fa37ef3a93133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
-class beman::optional::optional&lt; T &gt;</div><dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+class beman::optional::optional&lt; T &gt;</div><p>Optional Objects. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="base_derived_cast_8cpp-example.html#_a0">base_derived_cast.cpp</a>, <a class="el" href="concept_checks_8cpp-example.html#_a0">concept_checks.cpp</a>, <a class="el" href="optional_ref_8cpp-example.html#_a0">optional_ref.cpp</a>, <a class="el" href="pythagorean_triples_8cpp-example.html#_a0">pythagorean_triples.cpp</a>, <a class="el" href="range_loop_8cpp-example.html#_a0">range_loop.cpp</a>, <a class="el" href="sample_8cpp-example.html#_a0">sample.cpp</a>, and <a class="el" href="std_vs_beman_8cpp-example.html#_a0">std_vs_beman.cpp</a>.</dd>
 </dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -457,13 +452,13 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Type alias for the value type stored in the optional. </p>
+<p>Type alias for the value type contained in the optional. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afa442c06abd82de8cbabeafdeccf23a8" name="afa442c06abd82de8cbabeafdeccf23a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa442c06abd82de8cbabeafdeccf23a8">&#9670;&#160;</a></span>optional() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afa442c06abd82de8cbabeafdeccf23a8">&#9670;&#160;</a></span>optional() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -489,7 +484,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="ab5e1df4d22f084ccc18f7f776fc06411" name="ab5e1df4d22f084ccc18f7f776fc06411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5e1df4d22f084ccc18f7f776fc06411">&#9670;&#160;</a></span>optional() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e1df4d22f084ccc18f7f776fc06411">&#9670;&#160;</a></span>optional() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,7 +514,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="a6e96bf0926389ddfd0f83e6f7d11f9e7" name="a6e96bf0926389ddfd0f83e6f7d11f9e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e96bf0926389ddfd0f83e6f7d11f9e7">&#9670;&#160;</a></span>optional() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e96bf0926389ddfd0f83e6f7d11f9e7">&#9670;&#160;</a></span>optional() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -550,7 +545,7 @@ requires std::is_copy_constructible_v&lt;T&gt; &amp;&amp; (!std::is_trivially_co
 </div>
 </div>
 <a id="a57d14f0bedc03b049d37dcd96aa7f3fe" name="a57d14f0bedc03b049d37dcd96aa7f3fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57d14f0bedc03b049d37dcd96aa7f3fe">&#9670;&#160;</a></span>optional() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d14f0bedc03b049d37dcd96aa7f3fe">&#9670;&#160;</a></span>optional() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -581,7 +576,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="a8c1214300c7a79c170c716bb22824b2c" name="a8c1214300c7a79c170c716bb22824b2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c1214300c7a79c170c716bb22824b2c">&#9670;&#160;</a></span>optional() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c1214300c7a79c170c716bb22824b2c">&#9670;&#160;</a></span>optional() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -612,7 +607,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="af27e6b6d80787e82db114a3be987512f" name="af27e6b6d80787e82db114a3be987512f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af27e6b6d80787e82db114a3be987512f">&#9670;&#160;</a></span>optional() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af27e6b6d80787e82db114a3be987512f">&#9670;&#160;</a></span>optional() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -652,7 +647,70 @@ requires std::is_constructible_v&lt;T, Args...&gt;</div>
 </div><div class="memdoc">
 
 <p>Constructs the value in-place using the given arguments. </p>
-<p>Constructs the stored value in-place using the given arguments. </p>
+<p>Constructs the contained value in-place using the given arguments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>The arguments to use for in-place construction. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af75c591a86a8ee7d0185e67189234039" name="af75c591a86a8ee7d0185e67189234039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af75c591a86a8ee7d0185e67189234039">&#9670;&#160;</a></span>optional() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; <br />
+requires std::is_constructible_v&lt;T, std::initializer_list&lt;U&gt;&amp;, Args&amp;&amp;...&gt;</div>
+<div class="memtemplate">
+template&lt;class U , class... Args&gt; <br />
+requires std::is_constructible_v&lt;T, std::initializer_list&lt;U&gt;&amp;, Args&amp;&amp;...&gt;</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::optional </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbeman_1_1optional_1_1in__place__t.html">in_place_t</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; U &gt;&#160;</td>
+          <td class="paramname"><em>il</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs the value in-place using the given arguments. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">il</td><td>The initializer list to use for in-place construction. </td></tr>
+    <tr><td class="paramname">args</td><td>The arguments to use for in-place construction. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -712,20 +770,21 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="optional_ref_8cpp-example.html#a1">optional_ref.cpp</a>.</dd>
 </dl>
 
@@ -759,20 +818,21 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 
 </div>
 </div>
@@ -804,20 +864,21 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 
 </div>
 </div>
@@ -849,25 +910,26 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value. </p>
+<p>Applies a function to the contained value if there is one. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>The type of the invocable </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to apply to the contained value </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>auto</dd></dl>
+<p>The return type is the same as <code>std::invoke_result_t&lt;F, T&amp;&gt;</code>, but wrapped in an optional. The function <code>f</code> must return an optional type. </p>
 
 </div>
 </div>
 <a id="a07d0a37da89665a15c7910afbf8e199c" name="a07d0a37da89665a15c7910afbf8e199c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07d0a37da89665a15c7910afbf8e199c">&#9670;&#160;</a></span>begin()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a07d0a37da89665a15c7910afbf8e199c">&#9670;&#160;</a></span>begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -890,6 +952,33 @@ template&lt;class T &gt; </div>
 
 <p>Returns a const iterator to the beginning of the optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>const_iterator </dd></dl>
+
+</div>
+</div>
+<a id="a8b80251c803ff7de9e28e4e3cf16a6f2" name="a8b80251c803ff7de9e28e4e3cf16a6f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b80251c803ff7de9e28e4e3cf16a6f2">&#9670;&#160;</a></span>begin() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &gt;<a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">::iterator</a> <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::begin</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the beginning of the optional. </p>
+<dl class="section return"><dt>Returns</dt><dd>iterator </dd></dl>
 
 </div>
 </div>
@@ -930,7 +1019,7 @@ template&lt;class... Args&gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">args</td><td></td></tr>
+    <tr><td class="paramname">args</td><td>The argument list to use in emplacement construction. </td></tr>
   </table>
   </dd>
 </dl>
@@ -987,8 +1076,8 @@ template&lt;class U , class... Args&gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">il</td><td></td></tr>
-    <tr><td class="paramname">args</td><td></td></tr>
+    <tr><td class="paramname">il</td><td>The initializer list to use in emplacement construction. </td></tr>
+    <tr><td class="paramname">args</td><td>The argument list to use in emplacement construction. </td></tr>
   </table>
   </dd>
 </dl>
@@ -997,7 +1086,7 @@ template&lt;class U , class... Args&gt; </div>
 </div>
 </div>
 <a id="ab6746328dd0c1ff4e363f7a5e89e910e" name="ab6746328dd0c1ff4e363f7a5e89e910e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6746328dd0c1ff4e363f7a5e89e910e">&#9670;&#160;</a></span>end()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6746328dd0c1ff4e363f7a5e89e910e">&#9670;&#160;</a></span>end() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1020,6 +1109,33 @@ template&lt;class T &gt; </div>
 
 <p>Returns a const iterator to the end of the optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>const_iterator </dd></dl>
+
+</div>
+</div>
+<a id="a59208fb74a69302b36ab42fa4d61ce74" name="a59208fb74a69302b36ab42fa4d61ce74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59208fb74a69302b36ab42fa4d61ce74">&#9670;&#160;</a></span>end() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &gt;<a class="el" href="classbeman_1_1optional_1_1optional.html#a9a42c36423ec8c924fd5844b9bccd94c">::iterator</a> <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::end</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the end of the optional. </p>
+<dl class="section return"><dt>Returns</dt><dd>iterator </dd></dl>
 
 </div>
 </div>
@@ -1177,8 +1293,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
-<p>Returns the stored value.</p>
+<p>Returns a reference to the contained value. </p>
+<p>Returns the contained value.</p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp; </dd></dl>
 
 </div>
@@ -1208,7 +1324,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp;&amp; </dd></dl>
 
 </div>
@@ -1238,7 +1354,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>const T&amp; </dd></dl>
 
 </div>
@@ -1265,7 +1381,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a pointer to the stored value. </p>
+<p>Returns a pointer to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T* </dd></dl>
 
 </div>
@@ -1330,7 +1446,7 @@ requires (detail::enable_assign_from_other&lt;T, U, const U&amp;&gt;)</div>
 </table>
 </div><div class="memdoc">
 
-<p>Assigns the stored value from <code>rhs</code> if it has one, destroying the old value if there. </p>
+<p>Assigns the contained value from <code>rhs</code> if it has one, destroying the old value if there. </p>
 
 </div>
 </div>
@@ -1363,7 +1479,7 @@ requires (detail::enable_assign_from_other&lt;T, U, const U&amp;&gt;)</div>
 </table>
 </div><div class="memdoc">
 <p>Converting copy assignment operator.</p>
-<p>Copies the value from <code>rhs</code> if there is one. Otherwise resets the stored value in <code>*this</code>. </p>
+<p>Copies the value from <code>rhs</code> if there is one. Otherwise resets the contained value in <code>*this</code>. </p>
 
 </div>
 </div>
@@ -1396,7 +1512,7 @@ requires (detail::enable_assign_from_other&lt;T, U, U&gt;)</div>
 </table>
 </div><div class="memdoc">
 <p>Converting move assignment operator.</p>
-<p>Moves the value from <code>rhs</code> if there is one. Otherwise resets the stored value in <code>*this</code>. </p>
+<p>Moves the value from <code>rhs</code> if there is one. Otherwise resets the contained value in <code>*this</code>. </p>
 
 </div>
 </div>
@@ -1429,16 +1545,16 @@ requires detail::enable_assign_forward&lt;T, U&gt;</div>
 </table>
 </div><div class="memdoc">
 
-<p>Assigns the stored value from <code>u</code>, destroying the old value if there. </p>
+<p>Assigns the contained value from <code>u</code>, destroying the old value if there. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type of the value to assign. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to assign. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1474,7 +1590,7 @@ requires detail::enable_assign_forward&lt;T, U&gt;</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Assigns the stored value from <code>u</code>, destroying the old value if there was one. </p>
+<p>Assigns the contained value from <code>u</code>, destroying the old value if there was one. </p>
 
 </div>
 </div>
@@ -1506,16 +1622,16 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the stored value if it has one, or the result of applying <code>f</code> to the optional if it does not. </p>
+<p>Returns an optional containing the contained value if it has one, or the result of calling <code>f</code> if it does not. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>An invocable type returning an optional. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to call if the optional is disengaged. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1551,7 +1667,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
+<p>Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td></td></tr>
@@ -1597,16 +1713,16 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the stored value if it has one, or the result of applying <code>f</code> to the optional if it does not. </p>
+<p>Returns an optional containing the contained value if it has one, or the result of applying <code>f</code> to the optional if it does not. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">F</td><td></td></tr>
+    <tr><td class="paramname">F</td><td>An invocable type returning an optional. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>The invocable to call if the optional is disengaged. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1642,7 +1758,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the stored value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
+<p>Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td></td></tr>
@@ -1682,7 +1798,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Resets the optional to an empty state, destroying the stored value if there is one. </p>
+<p>Resets the optional to an empty state, destroying the contained value if there is one. </p>
 
 </div>
 </div>
@@ -1715,7 +1831,7 @@ template&lt;class T &gt; </div>
 <p>Swaps this optional with the other. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td></td></tr>
+    <tr><td class="paramname">rhs</td><td>The optional to swap with.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1752,7 +1868,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value. </p>
+<p>Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">F</td><td></td></tr>
@@ -1761,7 +1877,7 @@ template&lt;class F &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>An invocable to apply to the contained value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1797,7 +1913,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Carries out some operation on the stored object if there is one. </p>
+<p>Carries out some operation on the contained object if there is one. </p>
 <p>References now allowed</p>
 
 </div>
@@ -1830,7 +1946,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value. </p>
+<p>Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">F</td><td></td></tr>
@@ -1839,7 +1955,7 @@ template&lt;class F &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>An invocable to apply to the contained value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1906,7 +2022,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value. </p>
+<p>Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">F</td><td></td></tr>
@@ -1915,7 +2031,7 @@ template&lt;class F &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>An invocable to apply to the contained value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1982,7 +2098,7 @@ template&lt;class F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns an optional containing the result of applying <code>f</code> to the stored value, or a default value if there is no stored value. </p>
+<p>Returns an optional containing the result of applying <code>f</code> to the contained value, or an empty optional if there is no contained value. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">F</td><td></td></tr>
@@ -1991,7 +2107,7 @@ template&lt;class F &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">f</td><td></td></tr>
+    <tr><td class="paramname">f</td><td>An invocable to apply to the contained value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2055,7 +2171,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp;</dd></dl>
 <p>Returns the contained value if there is one, otherwise throws <a class="el" href="classbeman_1_1optional_1_1bad__optional__access.html" title="Exception thrown when trying to access the value of an empty optional.">bad_optional_access</a> </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="std_vs_beman_8cpp-example.html#a2">std_vs_beman.cpp</a>.</dd>
@@ -2088,7 +2204,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>T&amp;&amp; </dd></dl>
 
 </div>
@@ -2118,7 +2234,7 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns a reference to the contained value. </p>
 <dl class="section return"><dt>Returns</dt><dd>const T&amp; </dd></dl>
 
 </div>
@@ -2151,16 +2267,16 @@ template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns the contained value if there is one, otherwise returns <code>u</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type of the alternate value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to return in the empty case </td></tr>
   </table>
   </dd>
 </dl>
@@ -2196,16 +2312,16 @@ template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the stored value. </p>
+<p>Returns the contained value if there is one, otherwise returns <code>u</code>. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">U</td><td></td></tr>
+    <tr><td class="paramname">U</td><td>The type of the alternate value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td></td></tr>
+    <tr><td class="paramname">u</td><td>The value to return in the empty case </td></tr>
   </table>
   </dd>
 </dl>
@@ -2246,7 +2362,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>The stored value of the optional. </p>
+<p>The contained value of the optional. </p>
 
 </div>
 </div>
