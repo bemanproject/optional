@@ -33,5 +33,5 @@ var classbeman_1_1optional_1_1optional_3_01T_01_6_01_4 =
     [ "swap", "classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a1377d48c623415fccd805d77bd10a104", null ],
     [ "transform", "classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a4733d20c51aa637ed2567bdb5b2a1a32", null ],
     [ "value", "classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac5f889fe6a018361ee51ccbd2f6872b0", null ],
-    [ "value_or", "classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ab60a9a544f635bd57d84f6403a016f68", null ]
+    [ "value_or", "classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ad98653a33445dda82a70f510fad6d2ff", null ]
 ];

@@ -225,10 +225,11 @@ requires (std::is_constructible_v&lt;T&amp;, U&gt; &amp;&amp; !detail::reference
 <tr class="memitem:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac5f889fe6a018361ee51ccbd2f6872b0">value</a> () const</td></tr>
 <tr class="memdesc:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise throws.  <br /></td></tr>
 <tr class="separator:ac5f889fe6a018361ee51ccbd2f6872b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab60a9a544f635bd57d84f6403a016f68"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
-<tr class="memitem:ab60a9a544f635bd57d84f6403a016f68"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ab60a9a544f635bd57d84f6403a016f68">value_or</a> (U &amp;&amp;u) const</td></tr>
-<tr class="memdesc:ab60a9a544f635bd57d84f6403a016f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
-<tr class="separator:ab60a9a544f635bd57d84f6403a016f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad98653a33445dda82a70f510fad6d2ff"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; <br />
+requires (std::is_object_v&lt;T&gt; &amp;&amp; !std::is_array_v&lt;T&gt;)</td></tr>
+<tr class="memitem:ad98653a33445dda82a70f510fad6d2ff"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::decay_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ad98653a33445dda82a70f510fad6d2ff">value_or</a> (U &amp;&amp;u) const</td></tr>
+<tr class="memdesc:ad98653a33445dda82a70f510fad6d2ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
+<tr class="separator:ad98653a33445dda82a70f510fad6d2ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4169c7e8a5acbc6409d17b38495b93d"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:ac4169c7e8a5acbc6409d17b38495b93d"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac4169c7e8a5acbc6409d17b38495b93d">and_then</a> (F &amp;&amp;f) const</td></tr>
 <tr class="memdesc:ac4169c7e8a5acbc6409d17b38495b93d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
@@ -1420,21 +1421,23 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="ab60a9a544f635bd57d84f6403a016f68" name="ab60a9a544f635bd57d84f6403a016f68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab60a9a544f635bd57d84f6403a016f68">&#9670;&#160;</a></span>value_or()</h2>
+<a id="ad98653a33445dda82a70f510fad6d2ff" name="ad98653a33445dda82a70f510fad6d2ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad98653a33445dda82a70f510fad6d2ff">&#9670;&#160;</a></span>value_or()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T &gt; </div>
+template&lt;class T &gt; <br />
+requires (std::is_object_v&lt;T&gt; &amp;&amp; !std::is_array_v&lt;T&gt;)</div>
 <div class="memtemplate">
-template&lt;class U &gt; </div>
+template&lt;class U &gt; <br />
+requires (std::is_object_v&lt;T&gt; &amp;&amp; !std::is_array_v&lt;T&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::remove_cv_t&lt; T &gt; <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &amp; &gt;::value_or </td>
+          <td class="memname">constexpr std::decay_t&lt; T &gt; <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &amp; &gt;::value_or </td>
           <td>(</td>
           <td class="paramtype">U &amp;&amp;&#160;</td>
           <td class="paramname"><em>u</em></td><td>)</td>
