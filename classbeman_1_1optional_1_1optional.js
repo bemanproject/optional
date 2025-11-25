@@ -64,9 +64,9 @@ var classbeman_1_1optional_1_1optional =
     [ "value", "classbeman_1_1optional_1_1optional.html#a403cec6d7cc62ed49dc6c1a932da6de3", null ],
     [ "value", "classbeman_1_1optional_1_1optional.html#ad03f9b933291169eeba5e53cdfd50867", null ],
     [ "value", "classbeman_1_1optional_1_1optional.html#a78ed5dfa0c06503c1a682e6790727498", null ],
-    [ "value_or", "classbeman_1_1optional_1_1optional.html#a272e133b18664a90945451e6bf3c5697", null ],
-    [ "value_or", "classbeman_1_1optional_1_1optional.html#a40912ec1c3bc9bb333b724fe1be49d02", null ],
-    [ "value_or", "classbeman_1_1optional_1_1optional.html#a40912ec1c3bc9bb333b724fe1be49d02", null ],
+    [ "value_or", "classbeman_1_1optional_1_1optional.html#ac096c3c3ac924809a2a9d24aa88b30c1", null ],
+    [ "value_or", "classbeman_1_1optional_1_1optional.html#a1a4d7b910633a73a4aecaac930684aef", null ],
+    [ "value_or", "classbeman_1_1optional_1_1optional.html#a1a4d7b910633a73a4aecaac930684aef", null ],
     [ "_", "classbeman_1_1optional_1_1optional.html#a1814481a6e7600c4a6f074d24f1e2de4", null ],
     [ "value_", "classbeman_1_1optional_1_1optional.html#a8f8d911d75653dfe72741dc3431fe740", null ]
 ];

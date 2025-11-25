@@ -266,14 +266,14 @@ constexpr const T *&#160;</td><td class="memItemRight" valign="bottom"><b>operat
 <tr class="memitem:ad03f9b933291169eeba5e53cdfd50867"><td class="memItemLeft" align="right" valign="top">constexpr T &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ad03f9b933291169eeba5e53cdfd50867">value</a> () &amp;&amp;</td></tr>
 <tr class="memdesc:ad03f9b933291169eeba5e53cdfd50867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the contained value.  <br /></td></tr>
 <tr class="separator:ad03f9b933291169eeba5e53cdfd50867"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
-<tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a40912ec1c3bc9bb333b724fe1be49d02">value_or</a> (U &amp;&amp;u) const &amp;</td></tr>
-<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
-<tr class="separator:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
-<tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a272e133b18664a90945451e6bf3c5697">value_or</a> (U &amp;&amp;u) &amp;&amp;</td></tr>
-<tr class="memdesc:a272e133b18664a90945451e6bf3c5697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
-<tr class="separator:a272e133b18664a90945451e6bf3c5697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4d7b910633a73a4aecaac930684aef"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:a1a4d7b910633a73a4aecaac930684aef"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a1a4d7b910633a73a4aecaac930684aef">value_or</a> (U &amp;&amp;u) const &amp;</td></tr>
+<tr class="memdesc:a1a4d7b910633a73a4aecaac930684aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
+<tr class="separator:a1a4d7b910633a73a4aecaac930684aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memTemplParams" colspan="2">template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </td></tr>
+<tr class="memitem:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#ac096c3c3ac924809a2a9d24aa88b30c1">value_or</a> (U &amp;&amp;u) &amp;&amp;</td></tr>
+<tr class="memdesc:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code>.  <br /></td></tr>
+<tr class="separator:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a4e2cee231a67ca48f82715cdd334bf94">and_then</a> (F &amp;&amp;f) &amp;</td></tr>
 <tr class="memdesc:a4e2cee231a67ca48f82715cdd334bf94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
@@ -347,15 +347,15 @@ requires (detail::enable_assign_from_other&lt;T, U, const U&amp;&gt;)</td></tr>
 requires (detail::enable_assign_from_other&lt;T, U, U&gt;)</td></tr>
 <tr class="memitem:a903be85207735fdef630b75ba3479402"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional.html#a903be85207735fdef630b75ba3479402">operator=</a> (<a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; U &gt; &amp;&amp;rhs)</td></tr>
 <tr class="separator:a903be85207735fdef630b75ba3479402"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplParams" colspan="2"><a id="a40912ec1c3bc9bb333b724fe1be49d02" name="a40912ec1c3bc9bb333b724fe1be49d02"></a>
+<tr class="memitem:a1a4d7b910633a73a4aecaac930684aef"><td class="memTemplParams" colspan="2"><a id="a1a4d7b910633a73a4aecaac930684aef" name="a1a4d7b910633a73a4aecaac930684aef"></a>
 template&lt;class U &gt; </td></tr>
-<tr class="memitem:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value_or</b> (U &amp;&amp;u) const &amp;</td></tr>
-<tr class="memdesc:a40912ec1c3bc9bb333b724fe1be49d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code> <br /></td></tr>
-<tr class="separator:a40912ec1c3bc9bb333b724fe1be49d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplParams" colspan="2"><a id="a272e133b18664a90945451e6bf3c5697" name="a272e133b18664a90945451e6bf3c5697"></a>
+<tr class="memitem:a1a4d7b910633a73a4aecaac930684aef"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value_or</b> (U &amp;&amp;u) const &amp;</td></tr>
+<tr class="memdesc:a1a4d7b910633a73a4aecaac930684aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value if there is one, otherwise returns <code>u</code> <br /></td></tr>
+<tr class="separator:a1a4d7b910633a73a4aecaac930684aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memTemplParams" colspan="2"><a id="ac096c3c3ac924809a2a9d24aa88b30c1" name="ac096c3c3ac924809a2a9d24aa88b30c1"></a>
 template&lt;class U &gt; </td></tr>
-<tr class="memitem:a272e133b18664a90945451e6bf3c5697"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value_or</b> (U &amp;&amp;u) &amp;&amp;</td></tr>
-<tr class="separator:a272e133b18664a90945451e6bf3c5697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::remove_cv_t&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>value_or</b> (U &amp;&amp;u) &amp;&amp;</td></tr>
+<tr class="separator:ac096c3c3ac924809a2a9d24aa88b30c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplParams" colspan="2"><a id="a4e2cee231a67ca48f82715cdd334bf94" name="a4e2cee231a67ca48f82715cdd334bf94"></a>
 template&lt;class F &gt; </td></tr>
 <tr class="memitem:a4e2cee231a67ca48f82715cdd334bf94"><td class="memTemplItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memTemplItemRight" valign="bottom"><b>and_then</b> (F &amp;&amp;f) &amp;</td></tr>
@@ -2239,8 +2239,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a272e133b18664a90945451e6bf3c5697" name="a272e133b18664a90945451e6bf3c5697"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a272e133b18664a90945451e6bf3c5697">&#9670;&#160;</a></span>value_or() <span class="overload">[1/2]</span></h2>
+<a id="ac096c3c3ac924809a2a9d24aa88b30c1" name="ac096c3c3ac924809a2a9d24aa88b30c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac096c3c3ac924809a2a9d24aa88b30c1">&#9670;&#160;</a></span>value_or() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2253,7 +2253,7 @@ template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr T <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::value_or </td>
+          <td class="memname">constexpr std::remove_cv_t&lt; T &gt; <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::value_or </td>
           <td>(</td>
           <td class="paramtype">U &amp;&amp;&#160;</td>
           <td class="paramname"><em>u</em></td><td>)</td>
@@ -2284,8 +2284,8 @@ template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </div>
 
 </div>
 </div>
-<a id="a40912ec1c3bc9bb333b724fe1be49d02" name="a40912ec1c3bc9bb333b724fe1be49d02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40912ec1c3bc9bb333b724fe1be49d02">&#9670;&#160;</a></span>value_or() <span class="overload">[2/2]</span></h2>
+<a id="a1a4d7b910633a73a4aecaac930684aef" name="a1a4d7b910633a73a4aecaac930684aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a4d7b910633a73a4aecaac930684aef">&#9670;&#160;</a></span>value_or() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2298,7 +2298,7 @@ template&lt;class U  = std::remove_cv_t&lt;T&gt;&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr T <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::value_or </td>
+          <td class="memname">constexpr std::remove_cv_t&lt; T &gt; <a class="el" href="classbeman_1_1optional_1_1optional.html">beman::optional::optional</a>&lt; T &gt;::value_or </td>
           <td>(</td>
           <td class="paramtype">U &amp;&amp;&#160;</td>
           <td class="paramname"><em>u</em></td><td>)</td>
