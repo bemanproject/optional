@@ -238,17 +238,19 @@ requires (std::is_object_v&lt;T&gt; &amp;&amp; !std::is_array_v&lt;T&gt;)</td></
 <tr class="memitem:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; std::invoke_result_t&lt; F, T &amp; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a4733d20c51aa637ed2567bdb5b2a1a32">transform</a> (F &amp;&amp;f) const</td></tr>
 <tr class="memdesc:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a function to the contained value if there is one.  <br /></td></tr>
 <tr class="separator:a4733d20c51aa637ed2567bdb5b2a1a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
-<tr class="memitem:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a9f7acb23bf8e0dcaa413e6e8473aa92d">or_else</a> (F &amp;&amp;f) const</td></tr>
-<tr class="memdesc:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls a function if the optional is empty.  <br /></td></tr>
-<tr class="separator:a9f7acb23bf8e0dcaa413e6e8473aa92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e4459c54ec96cda0e98f48d050ef49"><td class="memTemplParams" colspan="2">template&lt;class F &gt; <br />
+requires (std::invocable&lt;F&gt;)</td></tr>
+<tr class="memitem:ac8e4459c54ec96cda0e98f48d050ef49"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#ac8e4459c54ec96cda0e98f48d050ef49">or_else</a> (F &amp;&amp;f) const</td></tr>
+<tr class="memdesc:ac8e4459c54ec96cda0e98f48d050ef49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls a function if the optional is empty.  <br /></td></tr>
+<tr class="separator:ac8e4459c54ec96cda0e98f48d050ef49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a889876c05fc47924dd6904a6b0165651"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a889876c05fc47924dd6904a6b0165651">reset</a> () noexcept</td></tr>
 <tr class="memdesc:a889876c05fc47924dd6904a6b0165651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the optional to an empty state.  <br /></td></tr>
 <tr class="separator:a889876c05fc47924dd6904a6b0165651"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memTemplParams" colspan="2">template&lt;class F &gt; </td></tr>
-<tr class="memitem:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &amp; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a13ba1eec1d30a8cf72bcef597fcce59f">or_else</a> (F &amp;&amp;f) const</td></tr>
-<tr class="memdesc:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
-<tr class="separator:a13ba1eec1d30a8cf72bcef597fcce59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a7015636ff4249d240bad0bf1dad2f3"><td class="memTemplParams" colspan="2">template&lt;class F &gt; <br />
+requires (std::invocable&lt;F&gt;)</td></tr>
+<tr class="memitem:a4a7015636ff4249d240bad0bf1dad2f3"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="classbeman_1_1optional_1_1optional.html">optional</a>&lt; T &amp; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbeman_1_1optional_1_1optional_3_01T_01_6_01_4.html#a4a7015636ff4249d240bad0bf1dad2f3">or_else</a> (F &amp;&amp;f) const</td></tr>
+<tr class="memdesc:a4a7015636ff4249d240bad0bf1dad2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an optional containing the contained value if it has one, or the result of calling <code>`f`</code> if it does not.  <br /></td></tr>
+<tr class="separator:a4a7015636ff4249d240bad0bf1dad2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
@@ -1192,15 +1194,16 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a9f7acb23bf8e0dcaa413e6e8473aa92d" name="a9f7acb23bf8e0dcaa413e6e8473aa92d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f7acb23bf8e0dcaa413e6e8473aa92d">&#9670;&#160;</a></span>or_else() <span class="overload">[1/2]</span></h2>
+<a id="ac8e4459c54ec96cda0e98f48d050ef49" name="ac8e4459c54ec96cda0e98f48d050ef49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e4459c54ec96cda0e98f48d050ef49">&#9670;&#160;</a></span>or_else() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
 <div class="memtemplate">
-template&lt;class F &gt; </div>
+template&lt;class F &gt; <br />
+requires (std::invocable&lt;F&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -1238,15 +1241,16 @@ template&lt;class F &gt; </div>
 
 </div>
 </div>
-<a id="a13ba1eec1d30a8cf72bcef597fcce59f" name="a13ba1eec1d30a8cf72bcef597fcce59f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13ba1eec1d30a8cf72bcef597fcce59f">&#9670;&#160;</a></span>or_else() <span class="overload">[2/2]</span></h2>
+<a id="a4a7015636ff4249d240bad0bf1dad2f3" name="a4a7015636ff4249d240bad0bf1dad2f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a7015636ff4249d240bad0bf1dad2f3">&#9670;&#160;</a></span>or_else() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
 <div class="memtemplate">
-template&lt;class F &gt; </div>
+template&lt;class F &gt; <br />
+requires (std::invocable&lt;F&gt;)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
