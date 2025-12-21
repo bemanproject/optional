@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('concept_checks_8cpp-example.html','');
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;optional&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;beman/optional/optional.hpp&gt;</span></div>
-<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;version&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;concepts&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>test {</div>
@@ -140,10 +140,10 @@ $(document).ready(function(){initNavTree('concept_checks_8cpp-example.html','');
 <div class="line"> </div>
 <div class="line">} <span class="comment">// namespace test</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> test_concepts_disabled = [](<span class="keyword">auto</span>&amp;&amp; opt) {</div>
+<div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> test_concepts_disabled = []([[maybe_unused]] <span class="keyword">auto</span>&amp;&amp; opt) {</div>
+<div class="line"><span class="preprocessor">#ifndef __cpp_lib_optional_range_support</span></div>
 <div class="line">    <span class="comment">// The optional type is the opt type without the reference.</span></div>
 <div class="line">    <span class="keyword">using </span>optional = std::remove_reference_t&lt;<span class="keyword">decltype</span>(opt)&gt;;</div>
-<div class="line"> </div>
 <div class="line">    <span class="comment">// Check std::ranges concepts not enabled.</span></div>
 <div class="line">    <span class="keyword">static_assert</span>(!std::ranges::range&lt;optional&gt;);</div>
 <div class="line">    <span class="keyword">static_assert</span>(!std::ranges::view&lt;optional&gt;);</div>
@@ -155,6 +155,7 @@ $(document).ready(function(){initNavTree('concept_checks_8cpp-example.html','');
 <div class="line">    <span class="keyword">static_assert</span>(!std::ranges::viewable_range&lt;optional&gt;);</div>
 <div class="line">    <span class="keyword">static_assert</span>(!std::ranges::random_access_range&lt;optional&gt;);</div>
 <div class="line">    <span class="keyword">static_assert</span>(!std::ranges::sized_range&lt;optional&gt;);</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> test_concepts_enabled = [](<span class="keyword">auto</span>&amp;&amp; opt) {</div>
