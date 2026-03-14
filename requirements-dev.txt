@@ -1,6 +1,6 @@
 cfgv==3.5.0
     # via pre-commit
-clang-format==22.1.0
+clang-format==22.1.1
     # via -r requirements-dev.in
 colorlog==6.10.1
     # via gcovr
