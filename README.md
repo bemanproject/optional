@@ -129,18 +129,14 @@ The precise version of GoogleTest that will be used is maintained in
 
 ### Supported Platforms
 
-This project officially supports:
-
-* GCC versions 12–15
-* LLVM Clang++ (with libstdc++ or libc++) versions 18–21
-* AppleClang version 17.0.0 (i.e., the [latest version on GitHub-hosted macOS runners](https://github.com/actions/runner-images/blob/main/images/macos/macos-15-arm64-Readme.md))
-* MSVC version 19.44.35215.0 (i.e., the [latest version on GitHub-hosted Windows runners](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md))
-
-> [!NOTE]
->
-> Versions above these ranges would likely work as well,
-> (e.g. HEAD/ nightly).
-> These development environments are verified using our CI configuration in [.github/workflows/ci_tests.yml](.github/workflows/ci_tests.yml).
+| Compiler   | Version | C++ Standards | Standard Library  |
+|------------|---------|---------------|-------------------|
+| GCC        | 15-13   | C++26-C++20   | libstdc++         |
+| GCC        | 12      | C++23, C++20  | libstdc++         |
+| Clang      | 22-19   | C++26-C++20   | libstdc++, libc++ |
+| Clang      | 18      | C++26-C++20   | libc++            |
+| AppleClang | latest  | C++26-C++20   | libc++            |
+| MSVC       | latest  | C++23         | MSVC STL          |
 
 ### Instructions
 
