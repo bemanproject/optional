@@ -76,7 +76,7 @@ compile-headers: $(_build_path)/CMakeCache.txt ## Compile the headers
 	 cmake --build $(_build_path)  --config $(CONFIG) --target all_verify_interface_header_sets -- -k 0
 
 install: $(_build_path)/CMakeCache.txt compile ## Install the project
-	cmake --install $(_build_path) --config $(CONFIG) --component beman.optional --verbose
+	cmake --install $(_build_path) --config $(CONFIG) --component optional_Development --verbose
 
 .PHONY: clean-install
 clean-install:

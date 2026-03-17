@@ -1,7 +1,7 @@
 # CMakeLists.txt                                                    -*-CMake-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.27...4.3)
 
 project(beman.optional VERSION 1.0.0 LANGUAGES CXX)
 
@@ -9,7 +9,7 @@ project(beman.optional VERSION 1.0.0 LANGUAGES CXX)
 include(CTest)
 include(FetchContent)
 
-set(TARGETS_EXPORT_NAME ${CMAKE_PROJECT_NAME}Targets)
+set(TARGETS_EXPORT_NAME ${PROJECT_NAME}Targets)
 
 option(
     OPTIONAL_ENABLE_TESTING
@@ -17,7 +17,7 @@ option(
     ${PROJECT_IS_TOP_LEVEL}
 )
 
-set(CMAKE_VERIFY_INTERFACE_HEADER_SETS ON)
+set(CMAKE_VERIFY_INTERFACE_HEADER_SETS ${PROJECT_IS_TOP_LEVEL})
 
 # Create the library target and named header set for beman.optional
 add_library(beman.optional INTERFACE)
@@ -58,8 +58,8 @@ add_subdirectory(include/beman/optional)
 
 add_subdirectory(examples)
 
-find_package(beman-install-library REQUIRED)
-beman_install_library(beman.optional FILE_SET beman_optional_headers)
+include(infra/cmake/beman-install-library.cmake)
+beman_install_library(beman.optional TARGETS beman.optional)
 
 # Coverage
 configure_file("cmake/gcovr.cfg.in" gcovr.cfg @ONLY)
