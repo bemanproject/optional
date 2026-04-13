@@ -1,4 +1,0 @@
-[beman_submodule]
-remote=https://github.com/steve-downey/infra.git
-commit_hash=300e5942b44132f5abaf62e62b4471a0e408579d
-allow_untracked_files=True
