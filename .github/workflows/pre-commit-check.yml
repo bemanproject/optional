@@ -15,4 +15,4 @@ jobs:
       checks: write
       issues: write
       pull-requests: write
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-pre-commit.yml@1.5.0
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-pre-commit.yml@1.5.1
