@@ -3,7 +3,6 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
----
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -21,13 +20,13 @@ updates:
           - "github/*"
     schedule:
       interval: "weekly"
-
   - package-ecosystem: pip
+
     directory: /papers/P2988
     schedule:
       interval: daily
-
   - package-ecosystem: pip
+
     directory: /
     schedule:
       interval: daily

@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@6c3c2f2c1c457b00c10c4848d6f5491db3b629df # v2.18.0
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
         with:
           egress-policy: audit
 
@@ -31,10 +31,10 @@ jobs:
         with:
           python-version: 3.13
 
-        # We wish to run pre-commit on all files instead of the changes
-        # only made in the push commit.
-        #
-        # So linting error persists when there's formatting problem.
+          # We wish to run pre-commit on all files instead of the changes
+          # only made in the push commit.
+          #
+          # So linting error persists when there's formatting problem.
       - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
 
   pre-commit-pr:
@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@6c3c2f2c1c457b00c10c4848d6f5491db3b629df # v2.18.0
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
         with:
           egress-policy: audit
 
@@ -69,7 +69,7 @@ jobs:
         with:
           python-version: 3.13
 
-        # we only lint on the changed file in PR.
+          # we only lint on the changed file in PR.
       - name: Get Changed Files
         id: changed-files
         uses: step-security/changed-files@2e07db73e5ccdb319b9a6c7766bd46d39d304bad # v47.0.5
@@ -79,7 +79,7 @@ jobs:
         with:
           extra_args: --files ${{ steps.changed-files.outputs.all_changed_files }}
 
-        # Review dog posts the suggested change from pre-commit to the pr.
+          # Review dog posts the suggested change from pre-commit to the pr.
       - name: suggester / pre-commit
         uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff #v1.24.0
         if: ${{ failure() && steps.run-pre-commit.conclusion == 'failure' }}

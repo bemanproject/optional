@@ -3,10 +3,10 @@ on:
   push:
     # Only the default branch is supported.
     branches:
-    - main
+      - main
   schedule:
     # Weekly on Saturdays.
-    - cron:  '30 1 * * 6'
+    - cron: '30 1 * * 6'
 
 permissions: read-all
 
@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@6c3c2f2c1c457b00c10c4848d6f5491db3b629df # v2.18.0
+        uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
         with:
           egress-policy: audit
 

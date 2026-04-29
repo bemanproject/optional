@@ -13,7 +13,7 @@ repos:
     # This brings in a portable version of clang-format.
     # See also: https://github.com/ssciwr/clang-format-wheel
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v22.1.3
+    rev: v22.1.4
     hooks:
     - id: clang-format
       types_or: [c++, c]
@@ -47,7 +47,7 @@ repos:
 
     # Beman Standard checking via beman-tidy
   - repo: https://github.com/bemanproject/beman-tidy
-    rev: v0.3.1
+    rev: v0.4.0
     hooks:
     - id: beman-tidy
       args: [".", "--verbose", "--require-all"]
