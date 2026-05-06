@@ -1,0 +1,25 @@
+# Antora playbook for standalone documentation builds.
+# Usage: npx antora antora-playbook.yml
+
+site:
+  title: beman.optional
+  url: https://bemanproject.github.io/optional
+  start_page: beman.optional::index.adoc
+
+antora:
+  extensions:
+    - require: '@cppalliance/antora-cpp-reference-extension'
+
+content:
+  sources:
+    - url: .
+      branches: [HEAD]
+      start_path: docs
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+
+output:
+  dir: build/site

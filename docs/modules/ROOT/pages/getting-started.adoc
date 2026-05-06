@@ -1,0 +1,160 @@
+= Getting Started
+:description: How to build, test, and install beman.optional.
+:sectanchors:
+:navtitle: Getting Started
+
+== Requirements
+
+beman.optional requires C++20 or later (default build target is C++23).
+
+.Supported compilers
+[cols="1,1,1,1"]
+|===
+| Compiler | Version | Standards | Standard Library
+
+| GCC | 15–13 | C++26–C++20 | libstdc++
+| GCC | 12 | C++23, C++20 | libstdc++
+| Clang | 22–19 | C++26–C++20 | libstdc++, libc++
+| Clang | 18 | C++26–C++20 | libc++
+| AppleClang | latest | C++26–C++20 | libc++
+| MSVC | latest | C++23 | MSVC STL
+|===
+
+=== Build Dependencies
+
+* CMake
+* A supported build system: Ninja, Make, or another CMake-supported backend
+
+Ubuntu 24.04 example:
+
+[source,shell]
+----
+apt-get install -y cmake make ninja-build
+apt-get install g++-14 gcc-14 clang-18 clang++-18
+----
+
+== Quick Start via GitHub Codespace
+
+Click the badge below to open a pre-configured Codespace — no local setup required:
+
+image:https://github.com/codespaces/badge.svg[Open in GitHub Codespaces,link=https://codespaces.new/bemanproject/optional]
+
+The container may take up to 5 minutes to start.
+
+== Building with CMake Presets
+
+This project uses https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html[CMake Presets].
+List available presets:
+
+[source,shell]
+----
+cmake --list-presets
+----
+
+Run a full workflow (configure → build → test):
+
+[source,shell]
+----
+cmake --workflow --preset gcc-debug
+----
+
+`debug` presets enable debugging instrumentation and sanitizers.
+`release` presets use maximum optimisation (`-O3`).
+
+== Custom Build
+
+=== Build and Run Tests
+
+[source,shell]
+----
+# Configure with sanitizers
+cmake -G "Ninja Multi-Config" \
+      -DCMAKE_CONFIGURATION_TYPES="RelWithDebInfo;Asan" \
+      -DCMAKE_TOOLCHAIN_FILE=etc/clang-19-toolchain.cmake \
+      -B .build -S .
+
+# Build
+cmake --build .build --config Asan --target all -- -k 0
+
+# Run tests
+ctest --build-config Asan --output-on-failure --test-dir .build
+----
+
+=== Build Without Tests
+
+[source,shell]
+----
+cmake -G "Ninja Multi-Config" \
+      -DCMAKE_CONFIGURATION_TYPES="RelWithDebInfo;Asan" \
+      -DCMAKE_TOOLCHAIN_FILE=etc/clang-19-toolchain.cmake \
+      -DOPTIONAL_ENABLE_TESTING=OFF \
+      -B .build -S .
+
+cmake --build .build --config Asan --target all -- -k 0
+----
+
+=== GoogleTest via FetchContent
+
+If GoogleTest is not installed locally, CMake can download a compatible release:
+
+[source,shell]
+----
+cmake -B build -S . -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/use-fetch-content.cmake
+----
+
+The pinned version is maintained in `lockfile.json`.
+
+== Installation
+
+[source,shell]
+----
+cmake --workflow --preset gcc-release
+cmake --install build/gcc-release --prefix /opt/beman
+----
+
+Installed layout:
+
+[source]
+----
+/opt/beman
+├── include
+│   └── beman
+│       └── optional
+│           ├── detail/
+│           └── optional.hpp
+└── lib
+    └── cmake
+        └── beman.optional/
+----
+
+== Usage in a CMake Project
+
+After installation (or via `FetchContent`):
+
+[source,cmake]
+----
+find_package(beman.optional REQUIRED)
+target_link_libraries(my_target PRIVATE beman::optional)
+----
+
+== Linting
+
+Pre-commit hooks manage clang-format, cmake-lint, and other checks.
+
+Create and activate a Python virtual environment:
+
+[source,shell]
+----
+python3 -m venv .venv
+. .venv/bin/activate && pip install --upgrade pip setuptools wheel pip-tools
+. .venv/bin/activate && piptools sync requirements.txt requirements-dev.txt
+----
+
+Run all linters:
+
+[source,shell]
+----
+pre-commit run -a
+# or
+make lint
+----

@@ -32,6 +32,8 @@ compile_commands.json
 /docs/html
 /docs/latex
 /docs/adoc/
+/docs/modules/ROOT/pages/reference/
+/node_modules/
 /build/
 /installtest/.build/
 

@@ -1,0 +1,110 @@
+= Examples
+:description: Runnable code examples for beman.optional.
+:sectanchors:
+:navtitle: Examples
+
+All examples are in the `examples/` directory and are built as part of the standard CMake build.
+
+[source,shell]
+----
+cmake --workflow --preset gcc-14
+----
+
+== Basic Usage
+
+=== sample.cpp
+
+General beman.optional usage.
+
+https://godbolt.org/z/ebEzYc5fv[Try it on Compiler Explorer]
+
+=== std_vs_beman.cpp
+
+Comparison between `std::optional` and `beman::optional::optional`.
+
+[source,shell]
+----
+.build/gcc-14/examples/RelWithDebInfo/std_vs_beman
+# std_vs_beman: .has_value() matches?: yes
+# std_vs_beman: .value() matches?: yes
+----
+
+https://godbolt.org/z/P1c8x135M[Try it on Compiler Explorer]
+
+=== concept_checks.cpp
+
+Demonstrates the concept constraints on `optional<T&>`.
+
+https://godbolt.org/z/9893TMod4[Try it on Compiler Explorer]
+
+== Range Support (P3168R2)
+
+=== range_loop.cpp
+
+Demonstrates `for`-range iteration over an optional value.
+
+[source,cpp]
+----
+#include <beman/optional/optional.hpp>
+
+beman::optional::optional<int> empty_opt{};
+for ([[maybe_unused]] const auto& i : empty_opt) {
+    // not reached — empty optional produces zero iterations
+}
+
+beman::optional::optional<int> opt{26};
+for (const auto& i : opt) {
+    std::cout << "value: " << i << "\n"; // value: 26
+}
+----
+
+[source,shell]
+----
+.build/gcc-14/examples/RelWithDebInfo/range_loop
+# "for each loop" over C++26 optional: opt = 26
+----
+
+https://godbolt.org/z/Gc6Y9j6zf[Try it on Compiler Explorer]
+
+=== pythagorean_triples.cpp
+
+Generates Pythagorean triples using optional range support.
+
+[source,shell]
+----
+.build/gcc-14/examples/RelWithDebInfo/pythagorean_triples
+# First 10 Pythagorean triples:
+# (3, 4, 5)
+# (6, 8, 10)
+# (5, 12, 13)
+# ...
+----
+
+https://godbolt.org/z/hjvj4ez7W[Try it on Compiler Explorer]
+
+== Optional References (P2988R12)
+
+=== optional_ref.cpp
+
+Demonstrates `optional<T&>` with monadic operations.
+
+[source,cpp]
+----
+#include <beman/optional/optional.hpp>
+
+struct Cat { std::string name; };
+
+beman::optional::optional<Cat&> find_cat(std::string name) { return {}; }
+beman::optional::optional<Cat&> do_it(Cat& cat) { return {cat}; }
+
+beman::optional::optional<Cat&> api() {
+    auto cat = find_cat("Fido");
+    return cat.and_then(do_it);
+}
+----
+
+https://godbolt.org/z/MxjdvTTov[Try it on Compiler Explorer]
+
+=== base_derived_cast.cpp
+
+Demonstrates converting an `optional<Derived&>` to `optional<Base&>`.
