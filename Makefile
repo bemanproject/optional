@@ -259,6 +259,12 @@ docs: ## Build documentation site with Antora + MrDocs
 docs: node_modules $(MRDOCS)
 	PATH=$(abspath $(MRDOCS_INSTALL_DIR)/bin):$$PATH npx antora antora-playbook.yml
 
+.PHONY: clean-docs
+clean-docs: ## Remove generated Antora site
+	-rm -rf build/site
+
+clean: clean-docs
+
 .PHONY: view-docs
 view-docs: docs ## Open the built documentation site in a browser
 	sensible-browser build/site/index.html
@@ -267,6 +273,12 @@ view-docs: docs ## Open the built documentation site in a browser
 mrdocs: ## Generate API reference pages with MrDocs (without full Antora build)
 mrdocs: $(MRDOCS)
 	cd docs && NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
+
+.PHONY: clean-mrdocs
+clean-mrdocs: ## Remove generated MrDocs reference pages
+	-rm -rf docs/modules/ROOT/pages/reference
+
+clean: clean-mrdocs
 
 .PHONY: testinstall
 testinstall: install
