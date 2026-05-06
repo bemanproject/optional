@@ -47,7 +47,7 @@ auto result = cat.and_then([](Cat& c) {
 * xref:overview.adoc[Design & Motivation] — background, design rationale, and key decisions
 * xref:getting-started.adoc[Getting Started] — build, install, and usage instructions
 * xref:examples.adoc[Examples] — runnable code examples
-* xref:reference/index.adoc[API Reference] — full generated API documentation
+* xref:reference:index.adoc[API Reference] — full generated API documentation
 
 == License
 
