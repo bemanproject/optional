@@ -1,5 +1,10 @@
 # $schema: https://mrdocs.com/docs/mrdocs/develop/_attachments/mrdocs.schema.json
 # yaml-language-server: $schema=https://mrdocs.com/docs/mrdocs/develop/_attachments/mrdocs.schema.json
+#
+# MrDocs configuration for API reference generation.
+# Structure and filter approach (include-symbols, implementation-defined,
+# exclude-symbols, private-bases) adapted from boostorg/url/doc/mrdocs.yml.
+# See https://github.com/boostorg/url for the upstream reference.
 
 ---
 source-root: ..

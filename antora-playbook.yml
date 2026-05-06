@@ -1,5 +1,18 @@
 # Antora playbook for standalone documentation builds.
 # Usage: npx antora antora-playbook.yml
+#
+# The Antora + MrDocs documentation pipeline is modelled on the approach used
+# by Boost libraries (e.g. boostorg/url), which pioneered this toolchain for
+# C++ API reference generation. See https://github.com/boostorg/url for the
+# upstream reference.
+#
+# Known issue (antora-cpp-reference-extension 0.1.0 + MrDocs 0.8.0):
+# The extension cannot parse MrDocs 0.8.0's version string ("MrDocs version
+# X.Y.Z") — it expects "version: X.Y.Z". As a consequence it registers
+# multipage output at a doubled virtual path, which produces one unresolved
+# xref (to the `_` union-sentinel member in optional<T>). The site still
+# builds. Track fixes at:
+#   https://github.com/cppalliance/antora-cpp-reference-extension
 
 site:
   title: beman.optional
