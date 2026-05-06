@@ -17,8 +17,13 @@ file-patterns:
   - '*.hpp'
 include-symbols:
   - 'beman::optional::**'
+exclude-symbols:
+  - 'beman::optional::optional::_'
 implementation-defined:
   - 'beman::optional::detail'
 multipage: true
 generator: adoc
-output: adoc
+output: modules/ROOT/pages/reference
+extract-private: false
+cmake: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DOPTIONAL_ENABLE_TESTING=OFF -DCMAKE_CXX_COMPILER=clang++-18'
+base-url: https://github.com/bemanproject/optional/blob/main/

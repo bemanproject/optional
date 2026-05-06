@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+name: beman.optional
+title: beman.optional
+version: ~
+
+nav:
+  - modules/ROOT/nav.adoc
+
+ext:
+  cpp-reference:
+    config: docs/mrdocs.yml
+    using-namespaces:
+      - beman::optional

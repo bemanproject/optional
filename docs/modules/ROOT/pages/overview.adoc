@@ -1,0 +1,173 @@
+= Design & Motivation
+:description: Design rationale and motivation for beman.optional — optional references and range support.
+:sectanchors:
+:navtitle: Design & Motivation
+
+== Motivation
+
+Optional references are common beyond the standard library's `optional`.
+Many popular libraries already provide them, and the desire for the feature is well understood.
+One standard library implementation ships an `optional<T&>` but disables it because the standard forbids it.
+
+JeanHeyd Meneide's _References for Standard Library Vocabulary Types — an optional case study_ (P1683R0)
+shows conclusively that rebind semantics are the only safe choice: assign-through on an engaged optional
+is too bug-prone, and implementations that attempt it have been abandoned.
+The standard library should follow existing practice and supply an `optional<T&>` that rebinds on assignment.
+
+== Design
+
+`optional<T&>` holds a pointer to the underlying `T`, or `nullptr` when disengaged.
+The implementation is straightforward using C++20 concept constraints.
+Because the held pointer is a primitive regular type with reference semantics,
+many operations can be defaulted and are naturally `noexcept`.
+The reference specialization is under 200 lines of code.
+
+In-place construction is not supported — it would only create immediate lifetime issues.
+
+=== Relational Operations
+
+Relational operators follow the same definitions as the primary template.
+Interoperable comparisons between `T` and `optional<T&>` work as expected,
+unlike `boost::optional<T&>`.
+
+=== make_optional
+
+Existing uses of `make_optional<X&>` appear to be primarily test cases; deliberate use
+is exceedingly rare in practice.
+To preserve existing behavior — where `make_optional` is ill-formed when it would construct a
+reference — changes to `make_optional` are proposed:
+
+* A non-type template parameter is added as the first template parameter of the single-argument form.
+* The multi-argument version is mandated not to accept a reference type.
+
+This diagnoses mistaken use while preserving correct existing behavior.
+
+=== Trivial Construction
+
+Construction of `optional<T&>` is trivial: the implementation is straightforward,
+and `optional<T>` is trivial. `boost::optional` is not.
+
+=== Value Category and `value()`
+
+Several implementations have distinct overloads depending on value category,
+but this makes it easy to accidentally steal from the referred-to object.
+Value category is therefore shallow.
+(Using _Deducing `this`_ would have made the problem subtler in code review.)
+
+=== Shallow vs Deep Const
+
+The const is shallow, consistent with a `struct ref { T* p; }`:
+constness of the wrapper does not affect whether `p` can be written through.
+Where deeper constness is desired, `optional<const T&>` prevents non-const access.
+
+=== Conditional Explicit
+
+As in the base template, `explicit` is conditional:
+`explicit(!std::is_convertible_v<U, T>)`.
+This avoids surprising differences between braced initialisation and `=`
+that exist in `boost::optional`.
+
+=== value_or
+
+`optional<T&>::value_or` returns by value (returns `T`).
+This is the weak consensus: it is least likely to cause issues and allows using a
+literal as the alternative concisely.
+A future proposal will introduce free functions `reference_or`, `value_or`,
+`or_invoke`, and `yield_if` over all _optional-like_ types.
+
+=== in_place_t Construction
+
+A limited form of in-place construction is provided for cases where the argument
+can be converted to the appropriate reference without creating a temporary.
+Because the reference specialisation is non-owning, there is no place for a temporary
+that will not dangle.
+
+== Principles for Reification of Design
+
+* `optional` must never construct a temporary, or knowingly take the address of a temporary.
+* It is always safe to copy the pointer value from an optional (by induction, it is not dangling).
+* `optional` has no storage — it may convert a `U` to a `T`, so long as that conversion does not create a temporary.
+* Constructors that would convert from a temporary are `delete`d.
+* Failure to compile (by ambiguity or no eligible constructor) is preferable to a dangling pointer.
+* Assignment is always from an `optional`; the assignment cannot throw; construction/conversion may.
+* The model for constraints and mandates is taken from `std::tuple` over reference types.
+* Constructors are explicit only where the operations used to create the pointer would be explicit.
+
+=== Construction from Temporary
+
+Construction of `optional<T&>` is disallowed when:
+
+* The constructor body would create a temporary and bind it to a reference.
+* A const lvalue reference would be bound to an rvalue.
+
+[source,cpp]
+----
+// Always dangling — ill-formed:
+optional<std::string const&> opt = "hello"; // char const* → std::string temporary
+
+// Also ill-formed — binds const lvalue ref to rvalue:
+optional<std::string const&> opt2 = std::string("hello");
+----
+
+This deviates from view-parameter types like `std::string_view`, but the trade-off is justified:
+
+* Only a subset of such uses would actually be safe.
+* The design detects dangling when `optional<T const&>` is used as a return type.
+* Behaviour is consistent with `reference_wrapper<T const>`.
+
+We are grateful to Arthur O'Dwyer's P2266R3 (accepted in C++23), which makes correct implementation possible.
+
+=== Deleting Dangling Overloads
+
+The dangling constructor is `delete`d rather than constrained away,
+so it participates in overload resolution and can cause ambiguity:
+
+[source,cpp]
+----
+void process(std::optional<std::string const&>);
+void process(std::optional<char const* const&>);
+
+void test() {
+    char const* cstr = "Text";
+    process(cstr); // Ambiguous — only the char const* overload is non-dangling
+}
+----
+
+This is intentional and consistent with behaviour for value types:
+
+[source,cpp]
+----
+void processVal(std::optional<std::string>);
+void processVal(std::optional<char const*>);
+
+void test() {
+    char const* cstr = "Text";
+    processVal(cstr); // Also ambiguous
+}
+----
+
+=== Assignment of optional<T&>
+
+Any assignment to `optional<T&>` is equivalent to assigning a pointer.
+There is no observable difference between converting assignment and
+constructing a temporary `optional<T&>` then copy-assigning it.
+Only copy-assignment is therefore provided; assignment from any other value
+is handled by implicit construction followed by copy-assignment.
+Move-assignment equals copy-assignment because only a pointer copy is involved.
+
+=== Copy and Assignment of optional<U&>&& to optional<T>
+
+Care is taken to prevent move-assignment from stealing the underlying referred-to value.
+`optional<T>::optional<U&> const&` is used instead, with adjusted constraints
+for `converts-from-any-cvref` and `is_assignable`.
+(Credit to Jan Kokemüller for uncovering this bug, which is present in many
+optional implementations that support references.)
+
+== Future Work
+
+We expect future papers to propose:
+
+* `std::expected<T&, E>`
+* `std::variant` with the ability to hold references
+
+The latter enables iteration over `std::tuple` elements.
