@@ -40,10 +40,14 @@ jobs:
       - name: Build documentation site
         run: make docs
 
+      - name: Get docs output directory
+        id: docs
+        run: echo "out=$(make -s print-docs-out)" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d231e62369c1b9a4d # v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/site
+          publish_dir: ${{ steps.docs.outputs.out }}
           publish_branch: gh-pages

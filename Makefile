@@ -262,12 +262,14 @@ realclean: clean-tools
 
 _docs_conf  := antora-playbook.yml docs/antora.yml docs/mrdocs.yml
 
-# Stamp and generated dep file live inside the output dir so clean-docs
-# removes them automatically.  The dep file is generated post-build in the
-# style of gcc -MMD -MP: one "stamp: file" line per source, plus a phony
-# target per file so that deleted files do not cause errors on the next run.
-DOCS_STAMP := build/site/.docs.stamp
-DOCS_DEPS  := build/site/.docs.d
+# Docs output lives under the toolchain build path so it uses the same
+# compilation environment as the rest of the build, and the root-level
+# compile_commands.json symlink (which may point to a different toolchain)
+# is never consulted.  --to-dir overrides antora-playbook.yml's output.dir,
+# which retains a sensible default for standalone `npx antora` invocations.
+DOCS_OUT   := $(_build_path)/site
+DOCS_STAMP := $(DOCS_OUT)/.docs.stamp
+DOCS_DEPS  := $(DOCS_OUT)/.docs.d
 
 -include $(DOCS_DEPS)
 # Explicit empty rule so -include does not fall through to .DEFAULT when the
@@ -275,7 +277,8 @@ DOCS_DEPS  := build/site/.docs.d
 $(DOCS_DEPS): ;
 
 $(DOCS_STAMP): $(_docs_conf) node_modules $(MRDOCS)
-	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) npx antora antora-playbook.yml
+	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) \
+	    npx antora --to-dir $(abspath $(DOCS_OUT)) antora-playbook.yml
 	@{ find include -name '*.hpp'; find docs/modules -name '*.adoc'; } \
 	    | awk -v s="$@" '{ print s ": " $$0; print $$0 ":" }' > $(DOCS_DEPS)
 	@touch $(DOCS_STAMP)
@@ -283,15 +286,19 @@ $(DOCS_STAMP): $(_docs_conf) node_modules $(MRDOCS)
 .PHONY: docs
 docs: $(DOCS_STAMP) ## Build documentation site with Antora + MrDocs
 
+.PHONY: print-docs-out
+print-docs-out: ## Print the docs output directory (used by CI to locate the built site)
+	@echo $(abspath $(DOCS_OUT))
+
 .PHONY: clean-docs
 clean-docs: ## Remove generated Antora site
-	-rm -rf build/site
+	-rm -rf $(DOCS_OUT)
 
 clean: clean-docs
 
 .PHONY: view-docs
 view-docs: $(DOCS_STAMP) ## Open the built documentation site in a browser
-	sensible-browser build/site/index.html
+	sensible-browser $(DOCS_OUT)/index.html
 
 .PHONY: mrdocs
 mrdocs: $(_docs_conf) node_modules $(MRDOCS) ## Generate API reference pages with MrDocs (without full Antora build)
