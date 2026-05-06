@@ -25,5 +25,5 @@ multipage: true
 generator: adoc
 output: modules/ROOT/pages/reference
 extract-private: false
-cmake: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DOPTIONAL_ENABLE_TESTING=OFF -DCMAKE_CXX_COMPILER=clang++-18'
+cmake: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DOPTIONAL_ENABLE_TESTING=OFF'
 base-url: https://github.com/bemanproject/optional/blob/main/
