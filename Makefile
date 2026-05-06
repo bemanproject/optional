@@ -2,7 +2,7 @@
 # Makefile                                                       -*-makefile-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-BASH := $(shell which bash 2>/dev/null)
+BASH := $(shell command -v bash 2>/dev/null)
 ifeq ($(BASH),)
   $(error bash not found; install bash or add it to PATH)
 endif
