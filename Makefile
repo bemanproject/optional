@@ -192,6 +192,9 @@ view-coverage: ## View the coverage report
 	sensible-browser $(_build_path)/coverage/coverage.html
 
 # Documentation tools
+# Prefer clang++ for MrDocs; try versioned names first, fall back to generic.
+_docs_cxx := $(shell for c in clang++-18 clang++-19 clang++-20 clang++-21 clang++; do command -v "$$c" 2>/dev/null && break; done)
+
 MRDOCS_VERSION ?= latest
 MRDOCS_INSTALL_DIR ?= .tools/mrdocs
 MRDOCS ?= $(MRDOCS_INSTALL_DIR)/bin/mrdocs
@@ -204,13 +207,14 @@ else ifeq ($(_uname_s),Darwin)
   _mrdocs_os := Darwin
 endif
 
-# Asset name is MrDocs-{version}-{OS}.tar.gz; version is embedded so the
-# "latest" redirect cannot be used — resolve the tag via the GitHub API instead.
+# Asset name is MrDocs-{version}-{OS}.tar.gz; version is embedded in the
+# filename so we resolve "latest" by following the releases/latest redirect.
 $(MRDOCS):
 	mkdir -p $(MRDOCS_INSTALL_DIR)
 	if [ "$(MRDOCS_VERSION)" = "latest" ]; then \
-	  _tag=$$(curl -fsSL https://api.github.com/repos/cppalliance/mrdocs/releases/latest \
-	    | grep -o '"tag_name": *"[^"]*"' | grep -o 'v[0-9][^"]*'); \
+	  _tag=$$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
+	    https://github.com/cppalliance/mrdocs/releases/latest \
+	    | grep -o 'v[0-9][^/]*'); \
 	else \
 	  _tag=$(MRDOCS_VERSION); \
 	fi; \
@@ -253,7 +257,7 @@ realclean: clean-tools
 .PHONY: docs
 docs: ## Build documentation site with Antora + MrDocs
 docs: node_modules $(MRDOCS)
-	PATH=$(abspath $(MRDOCS_INSTALL_DIR)/bin):$$PATH npx antora antora-playbook.yml
+	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) npx antora antora-playbook.yml
 
 .PHONY: clean-docs
 clean-docs: ## Remove generated Antora site
@@ -268,7 +272,7 @@ view-docs: docs ## Open the built documentation site in a browser
 .PHONY: mrdocs
 mrdocs: ## Generate API reference pages with MrDocs (without full Antora build)
 mrdocs: $(MRDOCS)
-	cd docs && NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
+	cd docs && CXX=$(_docs_cxx) NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
 
 .PHONY: clean-mrdocs
 clean-mrdocs: ## Remove generated MrDocs reference pages
