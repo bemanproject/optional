@@ -191,15 +191,82 @@ coverage: venv $(_build_path)/CMakeCache.txt
 view-coverage: ## View the coverage report
 	sensible-browser $(_build_path)/coverage/coverage.html
 
+# Documentation tools
+MRDOCS_VERSION ?= latest
+MRDOCS_INSTALL_DIR ?= .tools/mrdocs
+MRDOCS ?= $(MRDOCS_INSTALL_DIR)/bin/mrdocs
+
+_uname_s := $(shell uname -s)
+_uname_m := $(shell uname -m)
+
+ifeq ($(_uname_s),Linux)
+  _mrdocs_os := linux
+else ifeq ($(_uname_s),Darwin)
+  _mrdocs_os := darwin
+endif
+
+ifeq ($(_uname_m),x86_64)
+  _mrdocs_arch := amd64
+else ifeq ($(_uname_m),aarch64)
+  _mrdocs_arch := arm64
+endif
+
+_mrdocs_tarball := MrDocs-$(_mrdocs_arch)-$(_mrdocs_os)-clang-Release.tar.gz
+ifeq ($(MRDOCS_VERSION),latest)
+  _mrdocs_url := https://github.com/cppalliance/mrdocs/releases/latest/download/$(_mrdocs_tarball)
+else
+  _mrdocs_url := https://github.com/cppalliance/mrdocs/releases/download/$(MRDOCS_VERSION)/$(_mrdocs_tarball)
+endif
+
+$(MRDOCS):
+	mkdir -p $(MRDOCS_INSTALL_DIR)
+	curl -fsSL "$(_mrdocs_url)" | tar xz -C $(MRDOCS_INSTALL_DIR) --strip-components=1
+
+.PHONY: install-mrdocs
+install-mrdocs: $(MRDOCS) ## Install MrDocs locally
+
+.PHONY: update-mrdocs
+update-mrdocs: ## Update MrDocs (use MRDOCS_VERSION=vX.Y.Z to pin)
+	rm -rf $(MRDOCS_INSTALL_DIR)
+	$(MAKE) install-mrdocs
+
+node_modules: package-lock.json
+	npm ci
+	@touch node_modules
+
+.PHONY: install-antora
+install-antora: node_modules ## Install Antora and extensions via npm
+
+.PHONY: update-antora
+update-antora: ## Update Antora npm dependencies
+	npm update
+	@touch node_modules
+
+.PHONY: install-tools
+install-tools: install-mrdocs install-antora ## Install all documentation tools (MrDocs, Antora)
+
+.PHONY: update-tools
+update-tools: update-mrdocs update-antora ## Update all documentation tools to latest
+
+.PHONY: clean-tools
+clean-tools: ## Remove locally installed documentation tools
+	-rm -rf .tools node_modules
+
+realclean: clean-tools
+
 .PHONY: docs
-docs: ## Build the docs with Doxygen
-	doxygen docs/Doxyfile
+docs: ## Build documentation site with Antora + MrDocs
+docs: node_modules $(MRDOCS)
+	PATH=$(abspath $(MRDOCS_INSTALL_DIR)/bin):$$PATH npx antora antora-playbook.yml
+
+.PHONY: view-docs
+view-docs: docs ## Open the built documentation site in a browser
+	sensible-browser build/site/index.html
 
 .PHONY: mrdocs
-mrdocs: ## Build the docs with Doxygen
-	-rm -rf docs/adoc
-	cd docs && NO_COLOR=1 mrdocs mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
-	find docs/adoc -name '*.adoc' | xargs asciidoctor
+mrdocs: ## Generate API reference pages with MrDocs (without full Antora build)
+mrdocs: $(MRDOCS)
+	cd docs && NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
 
 .PHONY: testinstall
 testinstall: install
