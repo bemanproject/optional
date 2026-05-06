@@ -262,7 +262,7 @@ _docs_conf  := antora-playbook.yml docs/antora.yml docs/mrdocs.yml
 # removes them automatically.  The dep file is generated post-build in the
 # style of gcc -MMD -MP: one "stamp: file" line per source, plus a phony
 # target per file so that deleted files do not cause errors on the next run.
-DOCS_STAMP := build/site/.stamp
+DOCS_STAMP := build/site/.docs.stamp
 DOCS_DEPS  := build/site/.docs.d
 
 -include $(DOCS_DEPS)
