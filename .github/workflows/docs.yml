@@ -29,25 +29,27 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y clang-18 libclang-18-dev cmake
 
+      - name: Install MrDocs
+        run: |
+          curl -L \
+            "https://github.com/cppalliance/mrdocs/releases/latest/download/MrDocs-amd64-linux-clang-Release.tar.gz" \
+            | tar xz -C /usr/local --strip-components=1
+
       - name: Set up Node.js
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: '20'
 
-      - name: Install MrDocs
-        run: make install-mrdocs
+      - name: Install npm dependencies
+        run: npm ci
 
       - name: Build documentation site
-        run: make docs
-
-      - name: Get docs output directory
-        id: docs
-        run: echo "out=$(make -s print-docs-out)" >> "$GITHUB_OUTPUT"
+        run: npx antora antora-playbook.yml
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d231e62369c1b9a4d # v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ steps.docs.outputs.out }}
+          publish_dir: ./build/site
           publish_branch: gh-pages

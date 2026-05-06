@@ -1,10 +1,5 @@
 # $schema: https://mrdocs.com/docs/mrdocs/develop/_attachments/mrdocs.schema.json
 # yaml-language-server: $schema=https://mrdocs.com/docs/mrdocs/develop/_attachments/mrdocs.schema.json
-#
-# MrDocs configuration for API reference generation.
-# Structure and filter approach (include-symbols, implementation-defined,
-# exclude-symbols, private-bases) adapted from boostorg/url/doc/mrdocs.yml.
-# See https://github.com/boostorg/url for the upstream reference.
 
 ---
 source-root: ..
@@ -22,11 +17,13 @@ file-patterns:
   - '*.hpp'
 include-symbols:
   - 'beman::optional::**'
+exclude-symbols:
+  - 'beman::optional::optional::_'
 implementation-defined:
   - 'beman::optional::detail'
 multipage: true
 generator: adoc
 output: modules/ROOT/pages/reference
 extract-private: false
-cmake: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DOPTIONAL_ENABLE_TESTING=OFF'
+cmake: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DOPTIONAL_ENABLE_TESTING=OFF -DCMAKE_CXX_COMPILER=clang++-18'
 base-url: https://github.com/bemanproject/optional/blob/main/
