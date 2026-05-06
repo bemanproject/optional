@@ -213,20 +213,11 @@ else ifeq ($(_uname_s),Darwin)
   _mrdocs_os := Darwin
 endif
 
-# Asset name is MrDocs-{version}-{OS}.tar.gz; version is embedded in the
-# filename so we resolve "latest" by following the releases/latest redirect.
 $(MRDOCS):
-	mkdir -p $(MRDOCS_INSTALL_DIR)
-	if [ "$(MRDOCS_VERSION)" = "latest" ]; then \
-	  _tag=$$(curl -fsSLI -o /dev/null -w '%{url_effective}' \
-	    https://github.com/cppalliance/mrdocs/releases/latest \
-	    | grep -o 'v[0-9][^/]*'); \
-	else \
-	  _tag=$(MRDOCS_VERSION); \
-	fi; \
-	_ver=$${_tag#v}; \
-	curl -fsSL "https://github.com/cppalliance/mrdocs/releases/download/$${_tag}/MrDocs-$${_ver}-$(_mrdocs_os).tar.gz" \
-	  | tar xz -C $(MRDOCS_INSTALL_DIR) --strip-components=1
+	etc/install-mrdocs.sh \
+	    --version $(MRDOCS_VERSION) \
+	    --install-dir $(MRDOCS_INSTALL_DIR) \
+	    --os $(_mrdocs_os)
 
 .PHONY: install-mrdocs
 install-mrdocs: $(MRDOCS) ## Install MrDocs locally
