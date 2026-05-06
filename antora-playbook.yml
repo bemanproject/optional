@@ -26,6 +26,9 @@ antora:
 content:
   sources:
     - url: .
+      # List release tags here alongside HEAD to enable the version dropdown,
+      # e.g.: branches: [HEAD, v1.0, v1.1]
+      # Each ref must have a docs/antora.yml with the matching version: field.
       branches: [HEAD]
       start_path: docs
 
@@ -33,6 +36,7 @@ ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
+  supplemental_files: ./supplemental-ui
 
 output:
   dir: build/site
