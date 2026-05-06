@@ -254,10 +254,28 @@ clean-tools: ## Remove locally installed documentation tools
 
 realclean: clean-tools
 
-.PHONY: docs
-docs: ## Build documentation site with Antora + MrDocs
-docs: node_modules $(MRDOCS)
+_docs_conf  := antora-playbook.yml docs/antora.yml docs/mrdocs.yml
+
+# Stamp and generated dep file live inside the output dir so clean-docs
+# removes them automatically.  The dep file is generated post-build in the
+# style of gcc -MMD -MP: one "stamp: file" line per source, plus a phony
+# target per file so that deleted files do not cause errors on the next run.
+DOCS_STAMP := build/site/.stamp
+DOCS_DEPS  := build/site/.docs.d
+
+-include $(DOCS_DEPS)
+# Explicit empty rule so -include does not fall through to .DEFAULT when the
+# dep file is absent (first build or after clean-docs).
+$(DOCS_DEPS): ;
+
+$(DOCS_STAMP): $(_docs_conf) node_modules $(MRDOCS)
 	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) npx antora antora-playbook.yml
+	@{ find include -name '*.hpp'; find docs/modules -name '*.adoc'; } \
+	    | awk -v s="$@" '{ print s ": " $$0; print $$0 ":" }' > $(DOCS_DEPS)
+	@touch $(DOCS_STAMP)
+
+.PHONY: docs
+docs: $(DOCS_STAMP) ## Build documentation site with Antora + MrDocs
 
 .PHONY: clean-docs
 clean-docs: ## Remove generated Antora site
@@ -266,12 +284,11 @@ clean-docs: ## Remove generated Antora site
 clean: clean-docs
 
 .PHONY: view-docs
-view-docs: docs ## Open the built documentation site in a browser
+view-docs: $(DOCS_STAMP) ## Open the built documentation site in a browser
 	sensible-browser build/site/index.html
 
 .PHONY: mrdocs
-mrdocs: ## Generate API reference pages with MrDocs (without full Antora build)
-mrdocs: $(MRDOCS)
+mrdocs: $(_docs_conf) node_modules $(MRDOCS) ## Generate API reference pages with MrDocs (without full Antora build)
 	cd docs && CXX=$(_docs_cxx) NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
 
 .PHONY: clean-mrdocs
