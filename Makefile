@@ -197,30 +197,26 @@ MRDOCS_INSTALL_DIR ?= .tools/mrdocs
 MRDOCS ?= $(MRDOCS_INSTALL_DIR)/bin/mrdocs
 
 _uname_s := $(shell uname -s)
-_uname_m := $(shell uname -m)
 
 ifeq ($(_uname_s),Linux)
-  _mrdocs_os := linux
+  _mrdocs_os := Linux
 else ifeq ($(_uname_s),Darwin)
-  _mrdocs_os := darwin
+  _mrdocs_os := Darwin
 endif
 
-ifeq ($(_uname_m),x86_64)
-  _mrdocs_arch := amd64
-else ifeq ($(_uname_m),aarch64)
-  _mrdocs_arch := arm64
-endif
-
-_mrdocs_tarball := MrDocs-$(_mrdocs_arch)-$(_mrdocs_os)-clang-Release.tar.gz
-ifeq ($(MRDOCS_VERSION),latest)
-  _mrdocs_url := https://github.com/cppalliance/mrdocs/releases/latest/download/$(_mrdocs_tarball)
-else
-  _mrdocs_url := https://github.com/cppalliance/mrdocs/releases/download/$(MRDOCS_VERSION)/$(_mrdocs_tarball)
-endif
-
+# Asset name is MrDocs-{version}-{OS}.tar.gz; version is embedded so the
+# "latest" redirect cannot be used — resolve the tag via the GitHub API instead.
 $(MRDOCS):
 	mkdir -p $(MRDOCS_INSTALL_DIR)
-	curl -fsSL "$(_mrdocs_url)" | tar xz -C $(MRDOCS_INSTALL_DIR) --strip-components=1
+	if [ "$(MRDOCS_VERSION)" = "latest" ]; then \
+	  _tag=$$(curl -fsSL https://api.github.com/repos/cppalliance/mrdocs/releases/latest \
+	    | grep -o '"tag_name": *"[^"]*"' | grep -o 'v[0-9][^"]*'); \
+	else \
+	  _tag=$(MRDOCS_VERSION); \
+	fi; \
+	_ver=$${_tag#v}; \
+	curl -fsSL "https://github.com/cppalliance/mrdocs/releases/download/$${_tag}/MrDocs-$${_ver}-$(_mrdocs_os).tar.gz" \
+	  | tar xz -C $(MRDOCS_INSTALL_DIR) --strip-components=1
 
 .PHONY: install-mrdocs
 install-mrdocs: $(MRDOCS) ## Install MrDocs locally
