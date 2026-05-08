@@ -46,4 +46,4 @@ ui:
   supplemental_files: ./supplemental-ui
 
 output:
-  dir: build/site
+  dir: .build/site
