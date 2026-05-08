@@ -51,7 +51,7 @@ define run_cmake =
 	-DCMAKE_INSTALL_PREFIX=$(abspath $(INSTALL_PREFIX)) \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
 	-DCMAKE_PREFIX_PATH=$(CURDIR)/infra/cmake \
-    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/use-fetch-content.cmake;infra/cmake/bemancmakeinstrumentation.cmake" \
+    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/use-fetch-content.cmake;infra/cmake/BuildTelemetry.cmake" \
 	$(_cmake_args) \
 	$(CURDIR)
 endef
@@ -198,8 +198,15 @@ view-coverage: ## View the coverage report
 	sensible-browser $(_build_path)/coverage/coverage.html
 
 # Documentation tools
-# Prefer clang++ for MrDocs; try versioned names first, fall back to generic.
-_docs_cxx := $(shell for c in clang++-18 clang++-19 clang++-20 clang++-21 clang++; do command -v "$$c" 2>/dev/null && break; done)
+# If a versioned clang toolchain is active (TOOLCHAIN=clang-N), use that
+# exact compiler for MrDocs so the docs build matches the compile environment.
+# For gcc, unversioned, or no toolchain, auto-detect the newest available clang++.
+ifneq ($(filter clang-%,$(TOOLCHAIN)),)
+  _docs_cxx := $(shell command -v "clang++$(patsubst clang%,%,$(TOOLCHAIN))" 2>/dev/null)
+endif
+ifeq ($(_docs_cxx),)
+  _docs_cxx := $(shell for c in clang++-21 clang++-20 clang++-19 clang++-18 clang++; do command -v "$$c" 2>/dev/null && break; done)
+endif
 
 MRDOCS_VERSION ?= latest
 MRDOCS_INSTALL_DIR ?= .tools/mrdocs

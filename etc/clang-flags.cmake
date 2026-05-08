@@ -3,7 +3,7 @@ include_guard(GLOBAL)
 set(CMAKE_CXX_STANDARD 20)
 
 set(CMAKE_CXX_FLAGS
-    "-stdlib=libc++ -Wall -Wextra -std=gnu++20"
+    "-stdlib=libstdc++ -Wall -Wextra -std=gnu++20"
     CACHE STRING
     "CXX_FLAGS"
     FORCE
