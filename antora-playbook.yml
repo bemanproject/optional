@@ -21,18 +21,22 @@ site:
 
 antora:
   extensions:
+    # Fixes Antora 3.1's inability to open a local content source whose .git
+    # entry is a gitdir file (linked git worktree).  Must come first so the
+    # url is corrected before the cpp-reference extension runs.
+    - require: './antora-worktree-fix.js'
     - require: '@cppalliance/antora-cpp-reference-extension'
 
 content:
   sources:
     - url: .
-      # worktrees: [HEAD] reads from the filesystem so Antora works in any
-      # git worktree and picks up uncommitted changes.
-      # To add versioned releases to the version dropdown, append a branches
-      # entry for each tag, e.g.:
-      #   branches: [v1.0, v1.1]
+      # branches: [HEAD] reads committed content from the current branch.
+      # The antora-worktree-fix.js extension makes this work transparently
+      # whether Antora is invoked from a normal checkout or a linked worktree.
+      # To add versioned releases to the version dropdown, append extra entries:
+      #   branches: [HEAD, v1.0, v1.1]
       # Each ref must have a docs/antora.yml with the matching version: field.
-      worktrees: [HEAD]
+      branches: [HEAD]
       start_path: docs
 
 ui:

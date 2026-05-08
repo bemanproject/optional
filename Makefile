@@ -258,7 +258,7 @@ clean-tools: ## Remove locally installed documentation tools
 
 realclean: clean-tools
 
-_docs_conf  := antora-playbook.yml docs/antora.yml docs/mrdocs.yml
+_docs_conf  := antora-playbook.yml antora-worktree-fix.js docs/antora.yml docs/mrdocs.yml
 
 # Docs output lives under the toolchain build path so it uses the same
 # compilation environment as the rest of the build, and the root-level
