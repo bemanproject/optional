@@ -26,10 +26,13 @@ antora:
 content:
   sources:
     - url: .
-      # List release tags here alongside HEAD to enable the version dropdown,
-      # e.g.: branches: [HEAD, v1.0, v1.1]
+      # worktrees: [HEAD] reads from the filesystem so Antora works in any
+      # git worktree and picks up uncommitted changes.
+      # To add versioned releases to the version dropdown, append a branches
+      # entry for each tag, e.g.:
+      #   branches: [v1.0, v1.1]
       # Each ref must have a docs/antora.yml with the matching version: field.
-      branches: [HEAD]
+      worktrees: [HEAD]
       start_path: docs
 
 ui:
