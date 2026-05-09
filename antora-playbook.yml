@@ -24,7 +24,7 @@ antora:
     # Fixes Antora 3.1's inability to open a local content source whose .git
     # entry is a gitdir file (linked git worktree).  Must come first so the
     # url is corrected before the cpp-reference extension runs.
-    - require: './antora-worktree-fix.js'
+    - require: 'antora/antora-worktree-fix.js'
     - require: '@cppalliance/antora-cpp-reference-extension'
 
 content:

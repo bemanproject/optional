@@ -42,7 +42,8 @@ repos:
         args: ['-I', '.codespell_ignore', '--uri-ignore-words-list', '*']
         exclude: >
           (?x)^(
-            papers/.*
+            papers/.* |
+            package-lock.json
           )$
 
     # Beman Standard checking via beman-tidy
