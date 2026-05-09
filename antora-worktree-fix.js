@@ -8,9 +8,43 @@
 // optional.git) it is the bare repo directory itself.  It also resolves any
 // literal "HEAD" branch pattern to the branch actually checked out in the
 // linked worktree so the correct ref is built.
+//
+// Bare-repo extra: Antora/isomorphic-git reads refs/remotes/<remote>/<branch>
+// rather than refs/heads/<branch> when the content source is a bare repo.
+// If the user fetches from a secondary remote (e.g. bbgithub) the local head
+// moves forward but origin's tracking ref stays behind, causing Antora to read
+// stale content.  We therefore sync every remote-tracking ref for the current
+// branch to the local head before Antora aggregates content.
 
 const fs = require('fs')
 const path = require('path')
+
+// Read a git ref SHA, following symrefs and checking loose refs then packed-refs.
+function readRef (gitdir, refName) {
+  try {
+    const content = fs.readFileSync(path.join(gitdir, refName), 'utf8').trim()
+    if (content.startsWith('ref: ')) return readRef(gitdir, content.slice(5))
+    return content
+  } catch {}
+  try {
+    const packed = fs.readFileSync(path.join(gitdir, 'packed-refs'), 'utf8')
+    for (const line of packed.split('\n')) {
+      if (line.startsWith('#') || !line.trim()) continue
+      const [sha, ref] = line.trim().split(' ')
+      if (ref === refName) return sha
+    }
+  } catch {}
+  return null
+}
+
+// Write a loose git ref, creating parent directories as needed.
+function writeRef (gitdir, refName, sha) {
+  try {
+    const refPath = path.join(gitdir, refName)
+    fs.mkdirSync(path.dirname(refPath), { recursive: true })
+    fs.writeFileSync(refPath, sha + '\n', 'utf8')
+  } catch {}
+}
 
 module.exports.register = function () {
   this.once('playbookBuilt', ({ playbook }) => {
@@ -55,6 +89,7 @@ module.exports.register = function () {
     // path.dirname() would land in the bare repo's parent — a plain directory that
     // Antora can't open.  Detect the bare case by reading core.bare from the config.
     let mainRepoRoot = path.dirname(mainGitdir)
+    let isBare = false
     try {
       const config = fs.readFileSync(path.join(mainGitdir, 'config'), 'utf8')
       const worktreeMatch = config.match(/^\s*worktree\s*=\s*(.+?)\s*$/im)
@@ -63,6 +98,7 @@ module.exports.register = function () {
         mainRepoRoot = path.resolve(mainGitdir, worktreeMatch[1].trim())
       } else if (bareMatch) {
         mainRepoRoot = mainGitdir
+        isBare = true
       }
     } catch {
       // keep default (path.dirname)
@@ -76,6 +112,25 @@ module.exports.register = function () {
       if (ref) currentBranch = ref[1]
     } catch {
       // Detached HEAD — leave branch patterns unchanged.
+    }
+
+    // In a bare repo Antora/isomorphic-git reads refs/remotes/<remote>/<branch>
+    // rather than refs/heads/<branch>.  Sync every remote-tracking ref for the
+    // current branch to the local head so Antora always sees the current content
+    // regardless of which remote was last fetched.
+    if (isBare && currentBranch) {
+      const localSHA = readRef(mainGitdir, `refs/heads/${currentBranch}`)
+      if (localSHA) {
+        try {
+          const remotes = fs.readdirSync(path.join(mainGitdir, 'refs', 'remotes'))
+          for (const remote of remotes) {
+            const remoteRef = `refs/remotes/${remote}/${currentBranch}`
+            if (readRef(mainGitdir, remoteRef) !== localSHA) {
+              writeRef(mainGitdir, remoteRef, localSHA)
+            }
+          }
+        } catch {}
+      }
     }
 
     // Patch every local content source whose url resolves to the worktree root.
