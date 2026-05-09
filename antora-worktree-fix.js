@@ -2,10 +2,12 @@
 // Antora 3.1 cannot open a local content source whose .git entry is a file
 // (a gitdir reference), which is the case in every linked git worktree.  This
 // extension detects that situation in the playbookBuilt event — before content
-// aggregation — and rewrites the content source url to the main worktree (which
-// has a proper .git directory).  It also resolves any literal "HEAD" branch
-// pattern to the branch actually checked out in the linked worktree so the
-// correct ref is built.
+// aggregation — and rewrites the content source url to the canonical git
+// repository root so Antora can open it.  For a normal repo that is the parent
+// of the .git directory; for a bare repo (worktrees checked out alongside
+// optional.git) it is the bare repo directory itself.  It also resolves any
+// literal "HEAD" branch pattern to the branch actually checked out in the
+// linked worktree so the correct ref is built.
 
 const fs = require('fs')
 const path = require('path')
@@ -48,7 +50,23 @@ module.exports.register = function () {
       mainGitdir = worktreeGitdir.replace(/[/\\]worktrees[/\\][^/\\]+$/, '')
     }
 
-    const mainRepoRoot = path.dirname(mainGitdir)
+    // For a normal repo mainGitdir = <root>/.git, so the working tree is its parent.
+    // For a bare repo mainGitdir IS the repository (no separate working tree), so
+    // path.dirname() would land in the bare repo's parent — a plain directory that
+    // Antora can't open.  Detect the bare case by reading core.bare from the config.
+    let mainRepoRoot = path.dirname(mainGitdir)
+    try {
+      const config = fs.readFileSync(path.join(mainGitdir, 'config'), 'utf8')
+      const worktreeMatch = config.match(/^\s*worktree\s*=\s*(.+?)\s*$/im)
+      const bareMatch = config.match(/^\s*bare\s*=\s*true\s*$/im)
+      if (worktreeMatch) {
+        mainRepoRoot = path.resolve(mainGitdir, worktreeMatch[1].trim())
+      } else if (bareMatch) {
+        mainRepoRoot = mainGitdir
+      }
+    } catch {
+      // keep default (path.dirname)
+    }
 
     // Resolve the branch checked out in this worktree.
     let currentBranch
