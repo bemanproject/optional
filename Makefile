@@ -234,17 +234,15 @@ update-mrdocs: ## Update MrDocs (use MRDOCS_VERSION=vX.Y.Z to pin)
 	rm -rf $(MRDOCS_INSTALL_DIR)
 	$(MAKE) install-mrdocs
 
-node_modules: package-lock.json
+node_modules/.package-lock.json: package.json package-lock.json
 	npm ci
-	@touch node_modules
 
 .PHONY: install-antora
-install-antora: node_modules ## Install Antora and extensions via npm
+install-antora: node_modules/.package-lock.json ## Install Antora and extensions via npm
 
 .PHONY: update-antora
 update-antora: ## Update Antora npm dependencies
 	npm update
-	@touch node_modules
 
 .PHONY: install-tools
 install-tools: install-mrdocs install-antora ## Install all documentation tools (MrDocs, Antora)
@@ -256,7 +254,7 @@ update-tools: update-mrdocs update-antora ## Update all documentation tools to l
 clean-tools: ## Remove locally installed documentation tools
 	-rm -rf .tools node_modules
 
-realclean: clean-tools
+realclean: clean-tools clean-docs
 
 _docs_conf  := antora-playbook.yml antora-worktree-fix.js docs/antora.yml docs/mrdocs.yml
 
@@ -274,7 +272,7 @@ DOCS_DEPS  := $(DOCS_OUT)/.docs.d
 # dep file is absent (first build or after clean-docs).
 $(DOCS_DEPS): ;
 
-$(DOCS_STAMP): $(_docs_conf) node_modules $(MRDOCS)
+$(DOCS_STAMP): $(_docs_conf) node_modules/.package-lock.json $(MRDOCS)
 	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) \
 	    npx antora --to-dir $(abspath $(DOCS_OUT)) antora-playbook.yml
 	@{ find include -name '*.hpp'; find docs/modules -name '*.adoc'; } \
@@ -282,7 +280,7 @@ $(DOCS_STAMP): $(_docs_conf) node_modules $(MRDOCS)
 	@touch $(DOCS_STAMP)
 
 .PHONY: docs
-docs: $(DOCS_STAMP) ## Build documentation site with Antora + MrDocs
+docs: install-antora install-mrdocs $(DOCS_STAMP) ## Build documentation site with Antora + MrDocs
 
 .PHONY: print-docs-out
 print-docs-out: ## Print the docs output directory (used by CI to locate the built site)
@@ -299,7 +297,7 @@ view-docs: $(DOCS_STAMP) ## Open the built documentation site in a browser
 	sensible-browser $(DOCS_OUT)/index.html
 
 .PHONY: mrdocs
-mrdocs: $(_docs_conf) node_modules $(MRDOCS) ## Generate API reference pages with MrDocs (without full Antora build)
+mrdocs: $(_docs_conf) node_modules/.package-lock.json $(MRDOCS) ## Generate API reference pages with MrDocs (without full Antora build)
 	cd docs && CXX=$(_docs_cxx) NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
 
 .PHONY: clean-mrdocs
