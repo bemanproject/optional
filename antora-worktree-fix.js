@@ -115,19 +115,26 @@ module.exports.register = function () {
     }
 
     // In a bare repo Antora/isomorphic-git reads refs/remotes/<remote>/<branch>
-    // rather than refs/heads/<branch>.  Sync every remote-tracking ref for the
-    // current branch to the local head so Antora always sees the current content
-    // regardless of which remote was last fetched.
+    // rather than refs/heads/<branch>.  We therefore:
+    //   1. Always create/update refs/remotes/origin/<branch> from the local head.
+    //      This guarantees Antora can find the branch even when it has never been
+    //      pushed anywhere (new feature branch), is only on a fork remote, or
+    //      origin's tracking ref is simply stale.
+    //   2. Sync any other existing remote-tracking refs for the branch so they
+    //      don't produce a duplicate stale version.
     if (isBare && currentBranch) {
       const localSHA = readRef(mainGitdir, `refs/heads/${currentBranch}`)
       if (localSHA) {
+        const originRef = `refs/remotes/origin/${currentBranch}`
+        if (readRef(mainGitdir, originRef) !== localSHA) {
+          writeRef(mainGitdir, originRef, localSHA)
+        }
         try {
-          const remotes = fs.readdirSync(path.join(mainGitdir, 'refs', 'remotes'))
-          for (const remote of remotes) {
+          for (const remote of fs.readdirSync(path.join(mainGitdir, 'refs', 'remotes'))) {
+            if (remote === 'origin') continue
             const remoteRef = `refs/remotes/${remote}/${currentBranch}`
-            if (readRef(mainGitdir, remoteRef) !== localSHA) {
-              writeRef(mainGitdir, remoteRef, localSHA)
-            }
+            const sha = readRef(mainGitdir, remoteRef)
+            if (sha && sha !== localSHA) writeRef(mainGitdir, remoteRef, localSHA)
           }
         } catch {}
       }
