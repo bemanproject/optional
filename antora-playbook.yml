@@ -30,9 +30,14 @@ antora:
 content:
   sources:
     - url: .
-      # branches: [HEAD] reads committed content from the current branch.
+      # branches: [HEAD] reads *committed* content from the current branch.
       # The antora-worktree-fix.js extension makes this work transparently
       # whether Antora is invoked from a normal checkout or a linked worktree.
+      #
+      # Bare-repo + worktrees layout (e.g. optional.git alongside worktree dirs):
+      # the extension redirects Antora to the bare repo; make sure the local
+      # branch is up-to-date before building — run `git pull` in the worktree.
+      #
       # To add versioned releases to the version dropdown, append extra entries:
       #   branches: [HEAD, v1.0, v1.1]
       # Each ref must have a docs/antora.yml with the matching version: field.
