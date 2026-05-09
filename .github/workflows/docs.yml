@@ -1,21 +1,23 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
 name: Documentation
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write       # needed for gh-pages deploy on main
+      pull-requests: write  # needed to post the preview comment on PRs
+
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@8d3c67de8e2fe68ef647c8db1e6a09f647780f40 # v2.19.0
@@ -23,33 +25,93 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 1
 
-      - name: Install Clang and CMake
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y clang-18 libclang-18-dev cmake
-
-      - name: Install MrDocs
-        run: |
-          curl -L \
-            "https://github.com/cppalliance/mrdocs/releases/latest/download/MrDocs-amd64-linux-clang-Release.tar.gz" \
-            | tar xz -C /usr/local --strip-components=1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: '20'
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install Clang
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-18 libclang-18-dev
 
-      - name: Build documentation site
-        run: npx antora antora-playbook.yml
+      - name: Cache MrDocs
+        uses: actions/cache@v4
+        with:
+          path: .tools/mrdocs
+          key: mrdocs-${{ runner.os }}-${{ hashFiles('etc/install-mrdocs.sh') }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Build documentation
+        run: make docs
+
+      - name: Locate output directory
+        id: out
+        run: echo "dir=$(make -s print-docs-out)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-site
+          path: ${{ steps.out.outputs.dir }}/
+          retention-days: 14
+
+      # Posts a comment on the PR with a direct link to the workflow run
+      # where the docs-site artifact can be downloaded and inspected.
+      # Uses a hidden marker so the comment is updated (not duplicated) on
+      # each push to the PR branch.
+      # continue-on-error because fork PRs may lack write permission for
+      # pull-requests; the build still passes even if the comment fails.
+      - name: Post or update PR preview comment
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const MARKER = '<!-- docs-preview-comment -->'
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            const sha = context.payload.pull_request.head.sha.slice(0, 7)
+            const body = [
+              MARKER,
+              `📚 **Documentation preview** for \`${sha}\` — [workflow run](${runUrl})`,
+              '',
+              'To review: open the **docs-site** artifact from that run,',
+              'extract the zip, and open `index.html` in a browser.',
+            ].join('\n')
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const existing = comments.find(c => c.body.includes(MARKER))
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              })
+            }
 
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d231e62369c1b9a4d # v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/site
+          publish_dir: ${{ steps.out.outputs.dir }}
           publish_branch: gh-pages
