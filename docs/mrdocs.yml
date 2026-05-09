@@ -17,8 +17,6 @@ file-patterns:
   - '*.hpp'
 include-symbols:
   - 'beman::optional::**'
-exclude-symbols:
-  - 'beman::optional::optional::_'
 implementation-defined:
   - 'beman::optional::detail'
 multipage: true
