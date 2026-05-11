@@ -62,11 +62,11 @@ jobs:
       # where the docs-site artifact can be downloaded and inspected.
       # Uses a hidden marker so the comment is updated (not duplicated) on
       # each push to the PR branch.
-      # continue-on-error because fork PRs may lack write permission for
-      # pull-requests; the build still passes even if the comment fails.
+      # Skip on fork PRs: the GITHUB_TOKEN in a fork PR run is always
+      # read-only regardless of the permissions: block, so the comment
+      # would 403. Only attempt it when the PR is within the same repo.
       - name: Post or update PR preview comment
-        if: github.event_name == 'pull_request'
-        continue-on-error: true
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/github-script@v7
         with:
           script: |
