@@ -31,6 +31,7 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install Clang
         run: |
@@ -42,12 +43,6 @@ jobs:
         with:
           path: .tools/mrdocs
           key: mrdocs-${{ runner.os }}-${{ hashFiles('etc/install-mrdocs.sh') }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
 
       - name: Build documentation
         run: make docs

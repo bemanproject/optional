@@ -271,6 +271,10 @@ DOCS_DEPS  := $(DOCS_OUT)/.docs.d
 # Explicit empty rule so -include does not fall through to .DEFAULT when the
 # dep file is absent (first build or after clean-docs).
 $(DOCS_DEPS): ;
+# Same protection for the docs source files: if make cannot find them as
+# ordinary files (e.g. no cmake build dir exists in a docs-only CI run) it
+# must not fall through to the .DEFAULT cmake-passthrough rule.
+$(_docs_conf): ;
 
 $(DOCS_STAMP): $(_docs_conf) node_modules/.package-lock.json $(MRDOCS)
 	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) \
