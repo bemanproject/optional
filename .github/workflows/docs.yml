@@ -15,8 +15,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # needed for gh-pages deploy on main
-      pull-requests: write  # needed to post the preview comment on PRs
+      contents: write   # needed for gh-pages deploy on main
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -57,51 +56,6 @@ jobs:
           name: docs-site
           path: ${{ steps.out.outputs.dir }}/
           retention-days: 14
-
-      # Posts a comment on the PR with a direct link to the workflow run
-      # where the docs-site artifact can be downloaded and inspected.
-      # Uses a hidden marker so the comment is updated (not duplicated) on
-      # each push to the PR branch.
-      # Skip on fork PRs: the GITHUB_TOKEN in a fork PR run is always
-      # read-only regardless of the permissions: block, so the comment
-      # would 403. Only attempt it when the PR is within the same repo.
-      - name: Post or update PR preview comment
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const MARKER = '<!-- docs-preview-comment -->'
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-            const sha = context.payload.pull_request.head.sha.slice(0, 7)
-            const body = [
-              MARKER,
-              `📚 **Documentation preview** for \`${sha}\` — [workflow run](${runUrl})`,
-              '',
-              'To review: open the **docs-site** artifact from that run,',
-              'extract the zip, and open `index.html` in a browser.',
-            ].join('\n')
-
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            })
-            const existing = comments.find(c => c.body.includes(MARKER))
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              })
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              })
-            }
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
