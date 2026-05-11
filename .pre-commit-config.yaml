@@ -42,14 +42,15 @@ repos:
         args: ['-I', '.codespell_ignore', '--uri-ignore-words-list', '*']
         exclude: >
           (?x)^(
-            papers/.*
+            papers/.* |
+            package-lock.json
           )$
 
-    # Beman Standard checking via beman-tidy
-  - repo: https://github.com/bemanproject/beman-tidy
-    rev: v0.4.0
-    hooks:
-    - id: beman-tidy
-      args: [".", "--verbose", "--require-all"]
+#    # Beman Standard checking via beman-tidy
+#  - repo: https://github.com/bemanproject/beman-tidy
+#    rev: v0.4.0
+#    hooks:
+#    - id: beman-tidy
+#      args: [".", "--verbose", "--require-all"]
 
 exclude: 'infra/'

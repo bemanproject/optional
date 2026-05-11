@@ -1,0 +1,55 @@
+= beman.optional
+:description: C++26 extensions for std::optional — optional references and range support.
+:sectanchors:
+:url-repo: https://github.com/bemanproject/optional
+:page-tags: beman,optional,cpp26
+:navtitle: Home
+
+beman.optional implements `std::optional` extensions targeting C++26.
+The library evaluates the stability, usability, and performance of proposed changes
+before they are officially adopted by WG21, and allows developers to use these
+features before they land in major standard library implementations.
+
+**Implements**:
+
+* https://wg21.link/P2988R12[`std::optional<T&>` (P2988R12)] — optional references with rebind semantics
+* https://wg21.link/P3168R2[Give _std::optional_ Range Support (P3168R2)] — range iteration over optionals
+
+**Status**: Production ready. API may undergo changes.
+
+image:https://raw.githubusercontent.com/bemanproject/beman/refs/heads/main/images/badges/beman_badge-beman_library_production_ready_api_may_undergo_changes.svg[Library Status]
+image:https://github.com/bemanproject/beman/blob/main/images/badges/cpp26.svg[C++26]
+
+== Quick Example
+
+[source,cpp]
+----
+#include <beman/optional/optional.hpp>
+
+// Range support (P3168R2)
+beman::optional::optional<int> opt{26};
+for (const auto& i : opt) {
+    std::cout << "value: " << i << "\n"; // prints: value: 26
+}
+
+// Optional references (P2988R12)
+struct Cat { std::string name; };
+beman::optional::optional<Cat&> find_cat(std::string name);
+
+auto cat = find_cat("Fido");
+auto result = cat.and_then([](Cat& c) {
+    return beman::optional::optional<Cat&>{c};
+});
+----
+
+== Navigation
+
+* xref:overview.adoc[Design & Motivation] — background, design rationale, and key decisions
+* xref:getting-started.adoc[Getting Started] — build, install, and usage instructions
+* xref:examples.adoc[Examples] — runnable code examples
+* xref:reference:index.adoc[API Reference] — full generated API documentation
+
+== License
+
+`beman.optional` source is licensed under the Apache License v2.0 with LLVM Exceptions.
+Documentation is licensed under https://creativecommons.org/licenses/by/4.0/[CC-BY-4.0].

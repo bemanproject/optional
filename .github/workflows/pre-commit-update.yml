@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@503ac65da3fd803044bc82b2fe748b2fc6f503cd # 1.5.3
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-update-pre-commit.yml@4d946e210ce2ee68ccd8607c8acccacf171830c5 # 1.7.1
     secrets:
       APP_ID: ${{ secrets.AUTO_PR_BOT_APP_ID }}
       PRIVATE_KEY: ${{ secrets.AUTO_PR_BOT_PRIVATE_KEY }}

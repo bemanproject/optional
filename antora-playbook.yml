@@ -1,0 +1,54 @@
+# Antora playbook for standalone documentation builds.
+# Usage: npx antora antora-playbook.yml
+#
+# The Antora + MrDocs documentation pipeline is modelled on the approach used
+# by Boost libraries (e.g. boostorg/url), which pioneered this toolchain for
+# C++ API reference generation. See https://github.com/boostorg/url for the
+# upstream reference.
+#
+# Known issue (antora-cpp-reference-extension 0.1.0 + MrDocs 0.8.0):
+# The extension cannot parse MrDocs 0.8.0's version string ("MrDocs version
+# X.Y.Z") — it expects "version: X.Y.Z". As a consequence it registers
+# multipage output at a doubled virtual path, which produces one unresolved
+# xref (to the `_` union-sentinel member in optional<T>). The site still
+# builds. Track fixes at:
+#   https://github.com/cppalliance/antora-cpp-reference-extension
+
+site:
+  title: beman.optional
+  url: https://bemanproject.github.io/optional
+  start_page: beman.optional::index.adoc
+
+antora:
+  extensions:
+    # Fixes Antora 3.1's inability to open a local content source whose .git
+    # entry is a gitdir file (linked git worktree).  Must come first so the
+    # url is corrected before the cpp-reference extension runs.
+    - require: 'antora/antora-worktree-fix.js'
+    - require: '@cppalliance/antora-cpp-reference-extension'
+
+content:
+  sources:
+    - url: .
+      # branches: [HEAD] reads *committed* content from the current branch.
+      # The antora-worktree-fix.js extension makes this work transparently
+      # whether Antora is invoked from a normal checkout or a linked worktree.
+      #
+      # Bare-repo + worktrees layout (e.g. optional.git alongside worktree dirs):
+      # the extension redirects Antora to the bare repo; make sure the local
+      # branch is up-to-date before building — run `git pull` in the worktree.
+      #
+      # To add versioned releases to the version dropdown, append extra entries:
+      #   branches: [HEAD, v1.0, v1.1]
+      # Each ref must have a docs/antora.yml with the matching version: field.
+      branches: [HEAD]
+      start_path: docs
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+
+output:
+  dir: .build/site

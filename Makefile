@@ -2,6 +2,12 @@
 # Makefile                                                       -*-makefile-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
+BASH := $(shell command -v bash 2>/dev/null)
+ifeq ($(BASH),)
+  $(error bash not found; install bash or add it to PATH)
+endif
+SHELL := $(BASH)
+
 INSTALL_PREFIX?=.install/
 BUILD_DIR?=.build
 DEST?=$(INSTALL_PREFIX)
@@ -45,7 +51,7 @@ define run_cmake =
 	-DCMAKE_INSTALL_PREFIX=$(abspath $(INSTALL_PREFIX)) \
 	-DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
 	-DCMAKE_PREFIX_PATH=$(CURDIR)/infra/cmake \
-    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/use-fetch-content.cmake;infra/cmake/bemancmakeinstrumentation.cmake" \
+    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES="./cmake/use-fetch-content.cmake;infra/cmake/BuildTelemetry.cmake" \
 	$(_cmake_args) \
 	$(CURDIR)
 endef
@@ -191,15 +197,118 @@ coverage: venv $(_build_path)/CMakeCache.txt
 view-coverage: ## View the coverage report
 	sensible-browser $(_build_path)/coverage/coverage.html
 
+# Documentation tools
+# If a versioned clang toolchain is active (TOOLCHAIN=clang-N), use that
+# exact compiler for MrDocs so the docs build matches the compile environment.
+# For gcc, unversioned, or no toolchain, auto-detect the newest available clang++.
+ifneq ($(filter clang-%,$(TOOLCHAIN)),)
+  _docs_cxx := $(shell command -v "clang++$(patsubst clang%,%,$(TOOLCHAIN))" 2>/dev/null)
+endif
+ifeq ($(_docs_cxx),)
+  _docs_cxx := $(shell for c in clang++-21 clang++-20 clang++-19 clang++-18 clang++; do command -v "$$c" 2>/dev/null && break; done)
+endif
+
+MRDOCS_VERSION ?= latest
+MRDOCS_INSTALL_DIR ?= .tools/mrdocs
+MRDOCS ?= $(MRDOCS_INSTALL_DIR)/bin/mrdocs
+
+_uname_s := $(shell uname -s)
+
+ifeq ($(_uname_s),Linux)
+  _mrdocs_os := Linux
+else ifeq ($(_uname_s),Darwin)
+  _mrdocs_os := Darwin
+endif
+
+$(MRDOCS):
+	etc/install-mrdocs.sh \
+	    --version $(MRDOCS_VERSION) \
+	    --install-dir $(MRDOCS_INSTALL_DIR) \
+	    --os $(_mrdocs_os)
+
+.PHONY: install-mrdocs
+install-mrdocs: $(MRDOCS) ## Install MrDocs locally
+
+.PHONY: update-mrdocs
+update-mrdocs: ## Update MrDocs (use MRDOCS_VERSION=vX.Y.Z to pin)
+	rm -rf $(MRDOCS_INSTALL_DIR)
+	$(MAKE) install-mrdocs
+
+node_modules/.package-lock.json: package.json package-lock.json
+	npm ci
+
+.PHONY: install-antora
+install-antora: node_modules/.package-lock.json ## Install Antora and extensions via npm
+
+.PHONY: update-antora
+update-antora: ## Update Antora npm dependencies
+	npm update
+
+.PHONY: install-tools
+install-tools: install-mrdocs install-antora ## Install all documentation tools (MrDocs, Antora)
+
+.PHONY: update-tools
+update-tools: update-mrdocs update-antora ## Update all documentation tools to latest
+
+.PHONY: clean-tools
+clean-tools: ## Remove locally installed documentation tools
+	-rm -rf .tools node_modules
+
+realclean: clean-tools clean-docs
+
+_docs_conf  := antora-playbook.yml antora/antora-worktree-fix.js docs/antora.yml docs/mrdocs.yml
+
+# Docs output lives under the toolchain build path so it uses the same
+# compilation environment as the rest of the build, and the root-level
+# compile_commands.json symlink (which may point to a different toolchain)
+# is never consulted.  --to-dir overrides antora-playbook.yml's output.dir,
+# which retains a sensible default for standalone `npx antora` invocations.
+DOCS_OUT   := $(_build_path)/site
+DOCS_STAMP := $(DOCS_OUT)/.docs.stamp
+DOCS_DEPS  := $(DOCS_OUT)/.docs.d
+
+-include $(DOCS_DEPS)
+# Explicit empty rule so -include does not fall through to .DEFAULT when the
+# dep file is absent (first build or after clean-docs).
+$(DOCS_DEPS): ;
+# Same protection for the docs source files: if make cannot find them as
+# ordinary files (e.g. no cmake build dir exists in a docs-only CI run) it
+# must not fall through to the .DEFAULT cmake-passthrough rule.
+$(_docs_conf): ;
+
+$(DOCS_STAMP): $(_docs_conf) node_modules/.package-lock.json $(MRDOCS)
+	CXX=$(_docs_cxx) MRDOCS_ROOT=$(abspath $(MRDOCS_INSTALL_DIR)) \
+	    npx antora --to-dir $(abspath $(DOCS_OUT)) antora-playbook.yml
+	@{ find include -name '*.hpp'; find docs/modules -name '*.adoc'; } \
+	    | awk -v s="$@" '{ print s ": " $$0; print $$0 ":" }' > $(DOCS_DEPS)
+	@touch $(DOCS_STAMP)
+
 .PHONY: docs
-docs: ## Build the docs with Doxygen
-	doxygen docs/Doxyfile
+docs: install-antora install-mrdocs $(DOCS_STAMP) ## Build documentation site with Antora + MrDocs
+
+.PHONY: print-docs-out
+print-docs-out: ## Print the docs output directory (used by CI to locate the built site)
+	@echo $(abspath $(DOCS_OUT))
+
+.PHONY: clean-docs
+clean-docs: ## Remove generated Antora site
+	-rm -rf $(DOCS_OUT)
+
+clean: clean-docs
+
+.PHONY: view-docs
+view-docs: $(DOCS_STAMP) ## Open the built documentation site in a browser
+	sensible-browser $(DOCS_OUT)/index.html
 
 .PHONY: mrdocs
-mrdocs: ## Build the docs with Doxygen
-	-rm -rf docs/adoc
-	cd docs && NO_COLOR=1 mrdocs mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
-	find docs/adoc -name '*.adoc' | xargs asciidoctor
+mrdocs: $(_docs_conf) node_modules/.package-lock.json $(MRDOCS) ## Generate API reference pages with MrDocs (without full Antora build)
+	cd docs && CXX=$(_docs_cxx) NO_COLOR=1 $(abspath $(MRDOCS)) mrdocs.yml 2>&1 | sed 's/\x1b\[[0-9;]*m//g'
+
+.PHONY: clean-mrdocs
+clean-mrdocs: ## Remove generated MrDocs reference pages
+	-rm -rf docs/modules/ROOT/pages/reference
+
+clean: clean-mrdocs
 
 .PHONY: testinstall
 testinstall: install
