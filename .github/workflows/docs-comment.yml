@@ -1,0 +1,92 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+# Posts a PR preview comment after the Documentation workflow completes.
+#
+# This is intentionally a separate workflow from docs.yml.  The
+# `pull_request` event (used in docs.yml) always runs with a read-only
+# GITHUB_TOKEN for fork PRs, so it cannot post comments.  The
+# `workflow_run` event runs code from the BASE branch — never from the
+# fork — and is granted write permissions safely.  No fork code executes
+# here; we only read trusted metadata from the workflow_run context.
+#
+# Reference: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run
+
+name: Documentation Preview Comment
+
+on:
+  workflow_run:
+    workflows: ["Documentation"]
+    types: [completed]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  comment:
+    name: Post preview link
+    runs-on: ubuntu-latest
+    # Only comment on PR builds that succeeded.  Push and
+    # workflow_dispatch builds don't have a PR to comment on.
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@a5ad31d6a139d249332a2605b85202e8c0b78450 # v2.19.1
+        with:
+          egress-policy: audit
+
+      - name: Post or update PR preview comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const MARKER = '<!-- docs-preview-comment -->'
+            const run = context.payload.workflow_run
+            const runUrl = run.html_url
+            const sha = run.head_sha.slice(0, 7)
+            const body = [
+              MARKER,
+              `📚 **Documentation preview** for \`${sha}\` — [workflow run](${runUrl})`,
+              '',
+              'To review: open the **docs-site** artifact from that run,',
+              'extract the zip, and open `index.html` in a browser.',
+            ].join('\n')
+
+            // Locate the open PR that matches this workflow run's head
+            // branch. For same-repo PRs github.event.pull_request is
+            // available directly; for fork PRs we search by head label.
+            const headLabel = `${run.head_repository.owner.login}:${run.head_branch}`
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: headLabel,
+              state: 'open',
+            })
+            if (prs.length === 0) {
+              core.info(`No open PR found for head ${headLabel}; skipping comment.`)
+              return
+            }
+            const issue_number = prs[0].number
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+            })
+            const existing = comments.find(c => c.body.includes(MARKER))
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body,
+              })
+            }
