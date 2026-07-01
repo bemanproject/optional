@@ -25,7 +25,7 @@ target_link_libraries(
     PRIVATE beman.optional GTest::gtest GTest::gtest_main
 )
 
-add_library(constructor_fails test_constructor_fail.cpp)
+add_library(constructor_fails test_constructor_fail.test.cpp)
 
 target_link_libraries(constructor_fails PRIVATE beman.optional)
 
