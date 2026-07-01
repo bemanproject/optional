@@ -20,7 +20,7 @@ repos:
 
     # CMake linting and formatting
   - repo: https://github.com/BlankSpruce/gersemi-pre-commit
-    rev: 0.27.5
+    rev: 0.27.7
     hooks:
     - id: gersemi
       name: CMake linting
@@ -47,7 +47,7 @@ repos:
 
     # Beman Standard checking via beman-tidy
   - repo: https://github.com/bemanproject/beman-tidy
-    rev: v0.4.1
+    rev: v0.5.1
     hooks:
     - id: beman-tidy
       args: [".", "--verbose", "--require-all"]
