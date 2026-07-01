@@ -5,7 +5,7 @@ SPDX-License-Identifier: 2.0 license with LLVM exceptions
 -->
 
 <!-- markdownlint-disable -->
-![Library Status](https://raw.githubusercontent.com/bemanproject/beman/refs/heads/main/images/badges/beman_badge-beman_library_production_ready_api_may_undergo_changes.svg)![Standard Target](https://github.com/bemanproject/beman/blob/main/images/badges/cpp26.svg)[![Compiler Explorer Example](https://img.shields.io/badge/Try%20it%20on%20Compiler%20Explorer-grey?logo=compilerexplorer&logoColor=67c52a)](https://godbolt.org/z/Gc6Y9j6zf)
+[![Library Status](https://raw.githubusercontent.com/bemanproject/beman/refs/heads/main/images/badges/beman_badge-beman_library_production_ready_api_may_undergo_changes.svg)](https://github.com/bemanproject/beman/blob/main/docs/beman_library_maturity_model.md#the-beman-library-maturity-model)![Standard Target](https://github.com/bemanproject/beman/blob/main/images/badges/cpp26.svg)[![Compiler Explorer Example](https://img.shields.io/badge/Try%20it%20on%20Compiler%20Explorer-grey?logo=compilerexplorer&logoColor=67c52a)](https://godbolt.org/z/Gc6Y9j6zf)
 <!-- markdownlint-enable -->
 
 This repository implements `std::optional` extensions targeting C++26. The `beman.optional` library aims to evaluate the stability, the usability, and the performance of these proposed changes before they are officially adopted by WG21 into the C++ Working Draft. Additionally, it allows developers to use these new features before they are implemented in major standard library compilers.

@@ -1,4 +1,4 @@
-// tests/beman/optional/detail/iterator.t.cpp -*-C++-*-
+// tests/beman/optional/detail/iterator.test.cpp -*-C++-*-
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 /**
