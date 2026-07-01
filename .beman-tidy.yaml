@@ -7,3 +7,4 @@ ignored_paths:
   - .venv/
   - infra/
   - papers/
+  - include/beman/optional/detail/stl_interfaces/
