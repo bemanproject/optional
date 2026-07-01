@@ -1,5 +1,4 @@
 // include/beman/optional/detail/stl_interfaces/config.hpp            -*-C++-*-
-// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 // Copyright (C) 2020 T. Zachary Laine
 //
