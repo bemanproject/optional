@@ -1,3 +1,8 @@
+# cmake-format: off
+# etc/gcc-toolchain.cmake -*-cmake-*-
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# cmake-format: on
+
 include_guard(GLOBAL)
 
 set(CMAKE_C_COMPILER gcc)

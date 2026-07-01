@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# scripts/install_run_precommit.sh                                    -*-shell-*-
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 # shellcheck disable=SC1091
 
 python3 -m venv .venv
