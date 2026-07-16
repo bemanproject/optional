@@ -12,8 +12,8 @@ include(FetchContent)
 set(TARGETS_EXPORT_NAME ${PROJECT_NAME}Targets)
 
 option(
-    OPTIONAL_ENABLE_TESTING
-    "Enable building tests and test infrastructure"
+    BEMAN_OPTIONAL_BUILD_TESTS
+    "Enable building tests and test infrastructure. Default: ${PROJECT_IS_TOP_LEVEL}. Values: { ON, OFF }."
     ${PROJECT_IS_TOP_LEVEL}
 )
 
@@ -27,7 +27,7 @@ target_sources(
     PUBLIC FILE_SET beman_optional_headers TYPE HEADERS BASE_DIRS include
 )
 
-if(OPTIONAL_ENABLE_TESTING)
+if(BEMAN_OPTIONAL_BUILD_TESTS)
     find_package(GTest QUIET)
     if(GTest_FOUND)
         # Create the library target and named header set for testing beman.optional
