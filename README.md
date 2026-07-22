@@ -90,7 +90,7 @@ The README itself is licensed with CC0 1.0 Universal. Copy the contents and inco
 This project requires at least the following to build:
 
 * A C++ compiler that conforms to the C++20 standard or greater
-* CMake 3.30 or later
+* CMake 3.27 or later
 * (Test Only) GoogleTest
 
 You can disable building tests by setting CMake option `BEMAN_OPTIONAL_BUILD_TESTS` to
