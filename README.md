@@ -107,6 +107,14 @@ This is a modern C++ project which can be compiled with the latest C++ standards
 
 Default build: `C++23`. Please check `etc/${compiler}-flags.cmake`.
 
+### Dependencies
+
+Build-time dependencies:
+
+* `cmake`
+* `ninja`, `make`, or another CMake-supported build system
+  * CMake defaults to "Unix Makefiles" on POSIX systems
+
 Example of installation on `Ubuntu 24.04`:
 
 ```shell
