@@ -83,6 +83,22 @@ The README itself is licensed with CC0 1.0 Universal. Copy the contents and inco
 
 // SPDX-License-Identifier: CC0-1.0
 
+## Dependencies
+
+### Build Environment
+
+This project requires at least the following to build:
+
+* A C++ compiler that conforms to the C++20 standard or greater
+* CMake 3.27 or later
+* (Test Only) GoogleTest
+
+You can disable building tests by setting CMake option `BEMAN_OPTIONAL_BUILD_TESTS` to
+`OFF` when configuring the project.
+
+You can disable building examples by setting CMake option `BEMAN_OPTIONAL_BUILD_EXAMPLES` to
+`OFF` when configuring the project.
+
 ## How to Build
 
 ### Compiler Support
@@ -192,7 +208,7 @@ consequently have the highest optimization turned on (e.g. `O3`).
 CI current build and test flows:
 
 ```shell
-# Configure build: default build production code + tests (OPTIONAL_ENABLE_TESTING=ON by default).
+# Configure build: default build production code + tests (BEMAN_OPTIONAL_BUILD_TESTS=ON by default).
 $ cmake -G "Ninja Multi-Config" \
       -DCMAKE_CONFIGURATION_TYPES="RelWithDebInfo;Asan" \
       -DCMAKE_TOOLCHAIN_FILE=etc/clang-19-toolchain.cmake \
@@ -218,14 +234,15 @@ Total Test time (real) =   0.67 sec
 
 ##### Build Production, but Skip Tests
 
-By default, we build and run tests. You can provide `-DOPTIONAL_ENABLE_TESTING=OFF` and completely disable building tests:
+By default, we build and run tests. You can disable building tests by setting CMake
+option `BEMAN_OPTIONAL_BUILD_TESTS` to `OFF` when configuring the project:
 
 ```shell
-# Configure build: build production code, skip tests (OPTIONAL_ENABLE_TESTING=OFF).
+# Configure build: build production code, skip tests (BEMAN_OPTIONAL_BUILD_TESTS=OFF).
 $ cmake -G "Ninja Multi-Config" \
       -DCMAKE_CONFIGURATION_TYPES="RelWithDebInfo;Asan" \
       -DCMAKE_TOOLCHAIN_FILE=etc/clang-19-toolchain.cmake \
-      -DOPTIONAL_ENABLE_TESTING=OFF \
+      -DBEMAN_OPTIONAL_BUILD_TESTS=OFF \
       -B .build -S .
 -- The CXX compiler identification is Clang 19.0.0
 ...
