@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
@@ -83,7 +83,7 @@ jobs:
 
           # Review dog posts the suggested change from pre-commit to the pr.
       - name: suggester / pre-commit
-        uses: reviewdog/action-suggester@2558ba17e65a9039e73764a73009fc05fef28a46 #v1.24.3
+        uses: reviewdog/action-suggester@9d84de0d37e5b9e8de5ddec1e63ac29ef0026991 #v1.26.0
         if: ${{ failure() && steps.run-pre-commit.conclusion == 'failure' }}
         with:
           tool_name: pre-commit
