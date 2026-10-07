@@ -6,8 +6,10 @@ colorlog==6.10.1
     # via gcovr
 distlib==0.4.0
     # via virtualenv
-filelock==3.20.3
-    # via virtualenv
+filelock==3.32.7
+    # via
+    #   python-discovery
+    #   virtualenv
 gcovr==8.6
     # via -r requirements-dev.in
 identify==2.6.15
@@ -24,9 +26,11 @@ platformdirs==4.5.1
     # via virtualenv
 pre-commit==4.6.1
     # via -r requirements-dev.in
-pygments==2.19.2
+pygments==2.20.0
     # via gcovr
+python-discovery==1.6.1
+    # via virtualenv
 pyyaml==6.0.3
     # via pre-commit
-virtualenv==20.36.1
+virtualenv==21.7.13
     # via pre-commit
