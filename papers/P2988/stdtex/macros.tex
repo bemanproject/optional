@@ -406,8 +406,10 @@
 \ExplSyntaxOff
 
 %% Inline non-parenthesized table reference (override memoir's \tref)
+\providecommand{\tref}{}
 \renewcommand{\tref}[1]{\hyperref[tab:#1]{\tablerefname \nolinebreak[3] \ref*{tab:#1}}}
 %% Inline non-parenthesized figure reference (override memoir's \fref)
+\providecommand{\fref}{}
 \renewcommand{\fref}[1]{\hyperref[fig:#1]{\figurerefname \nolinebreak[3] \ref*{fig:#1}}}
 
 %% NTBS, etc.
@@ -515,8 +517,8 @@
 \newcommand{\libconceptx}[2]{\cname{#1}\indexconcept{\idxconcept{#2}}}
 \newcommand{\libconcept}[1]{\libconceptx{#1}{#1}}
 \newcommand{\deflibconcept}[1]{\cname{#1}\indexlibrary{\idxconcept{#1}}\indexconcept{\idxconcept{#1}|idxbfpage}}
-\newcommand{\exposconcept}[1]{\ecname{#1}\indexconcept{\idxexposconcept{#1}}}
 \newcommand{\exposconceptx}[2]{\ecname{#1}\indexconcept{\idxexposconcept{#2}}}
+\newcommand{\exposconcept}[1]{\exposconceptx{#1}{#1}}
 \newcommand{\exposconceptnc}[1]{\indexconcept{\idxexposconcept{#1}}\ecname{#1}\itcorr[-1]}               % macro length: 15
 \newcommand{\defexposconcept}[1]{\ecname{#1}\indexconcept{\idxexposconcept{#1}|idxbfpage}}               % macro length: 16
 \newcommand{\defexposconceptnc}[1]{\ecname{#1}\indexconcept{\idxexposconcept{#1}|idxbfpage}\itcorr[-1]}  % macro length: 18
@@ -609,7 +611,7 @@
 #1:}}\CodeBlockSetup}{}
 
 % An environment for command / program output that is not C++ code.
-\lstnewenvironment{outputblock}{\lstset{language=}}{}
+\lstnewenvironment{outputblock}{\lstset{escapechar=@, language=}}{}
 
 % A code block in which single-quotes are digit separators
 % rather than character literals.
@@ -799,3 +801,37 @@
 }
 \newcommand{\defncontext}[1]{\textlangle#1\textrangle}
 \newnoteenvironment{defnote}{Note \arabic{defnote} to entry}{end note}
+
+%%----------------------------------
+%% UB and IFNDR sections for annexes
+%%----------------------------------
+%% Undefined behavior and ill-formed, no diagnostic required
+
+\newcommand{\behaviordef}[2]{\nolinebreak[3] (\label{#2x:#1}\ref{#2:#1})}
+
+\newcommand{\behaviordescription}[2]{%
+\let\oldcontentsline\addcontentsline%
+\let\addcontentsline\nocontentsline%
+\ifcase\value{SectionDepth}
+         \let\s=\section
+      \or\let\s=\subsection
+      \or\let\s=\subsubsection
+      \or\let\s=\paragraph
+      \or\let\s=\subparagraph
+      \fi%
+\s[#1]{\hfill[#2:#1]}\label{#2:#1}%
+\textbf{Specified in:}\space\ref{#2x:#1}%
+\let\addcontentsline\oldcontentsline%
+}
+
+% Use in main body of text to mark undefined behavior
+\newcommand{\ubdef}[1]{\behaviordef{#1}{ub}}
+
+% Use in Annex for sections describing each individual UB
+\newcommand{\ubdescription}[1]{\behaviordescription{#1}{ub}}
+
+% Use in main body of text to mark IFNDR
+\newcommand{\ifndrdef}[1]{\behaviordef{#1}{ifndr}}
+
+% Use in Annex for sections describing each individual IFNDR
+\newcommand{\ifndrdescription}[1]{\behaviordescription{#1}{ifndr}}
