@@ -16,10 +16,10 @@ on:
 
 jobs:
   beman-submodule-check:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@38e1dc585a0a91f26217ec81eb3dea327586d231 # 1.7.4
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-submodule-check.yml@c8b30b8438e9c504cb7c38dca717687127b42561 # 1.7.5
 
   preset-test:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@38e1dc585a0a91f26217ec81eb3dea327586d231 # 1.7.4
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-preset-test.yml@c8b30b8438e9c504cb7c38dca717687127b42561 # 1.7.5
     with:
       matrix_config: >
         [
@@ -34,7 +34,7 @@ jobs:
         ]
 
   build-and-test:
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@38e1dc585a0a91f26217ec81eb3dea327586d231 # 1.7.4
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-build-and-test.yml@c8b30b8438e9c504cb7c38dca717687127b42561 # 1.7.5
     with:
       matrix_config: >
         {
@@ -147,4 +147,4 @@ jobs:
     permissions:
       contents: read
       issues: write
-    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@38e1dc585a0a91f26217ec81eb3dea327586d231 # 1.7.4
+    uses: bemanproject/infra-workflows/.github/workflows/reusable-beman-create-issue-when-fault.yml@c8b30b8438e9c504cb7c38dca717687127b42561 # 1.7.5
