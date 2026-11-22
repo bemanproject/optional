@@ -4,7 +4,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
@@ -15,14 +15,14 @@ repos:
     # This brings in a portable version of clang-format.
     # See also: https://github.com/ssciwr/clang-format-wheel
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v23.1.3
+    rev: ce4bd7270237e95464b37d808b942f02785192c4  # frozen: v23.1.5
     hooks:
     - id: clang-format
       types_or: [c++, c]
 
     # CMake linting and formatting
   - repo: https://github.com/BlankSpruce/gersemi-pre-commit
-    rev: 0.29.2
+    rev: 28010ddd6016e1a0f7bd232acb6536ef996ae897  # frozen: 0.29.2
     hooks:
     - id: gersemi
       name: CMake linting
@@ -30,7 +30,7 @@ repos:
     # Markdown linting
     # Config file: .markdownlint.yaml
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.50.0
+    rev: bf6d1792b8bc7f6cc93f10cc27735a4cb0c38e47  # frozen: v0.50.1
     hooks:
     - id: markdownlint
       args: ['--disable', 'MD013', ' --']
@@ -38,7 +38,7 @@ repos:
 
     # Config file: .codespell_ignore
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.3
+    rev: 57b21406f092110c18776e39b0bda50d37c945c8  # frozen: v2.4.3
     hooks:
       - id: codespell
         args: ['-I', '.codespell_ignore', '--uri-ignore-words-list', '*']
@@ -49,7 +49,7 @@ repos:
 
     # Beman Standard checking via beman-tidy
   - repo: https://github.com/bemanproject/beman-tidy
-    rev: v0.5.4
+    rev: 9d6c974eba684ea4d3541d943cbaa6ce8a7a5bc9  # frozen: v0.5.4
     hooks:
     - id: beman-tidy
       args: [".", "--verbose", "--require-all"]
