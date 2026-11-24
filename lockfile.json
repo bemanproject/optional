@@ -4,7 +4,10 @@
       "name": "googletest",
       "package_name": "GTest",
       "git_repository": "https://github.com/google/googletest.git",
-      "git_tag": "e39786088138f2749d64e9e90e0f9902daa77c40"
+      "git_tag": "e39786088138f2749d64e9e90e0f9902daa77c40",
+      "cmake_args": {
+        "INSTALL_GTEST": "OFF"
+      }
     }
   ]
 }
