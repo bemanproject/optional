@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: BSL-1.0
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 # This toolchain file is not meant to be used directly,
 # but to be invoked by CMake preset and GitHub CI.
@@ -16,5 +16,8 @@
 include(${CMAKE_CURRENT_LIST_DIR}/llvm-toolchain.cmake)
 
 if(NOT CMAKE_CXX_FLAGS MATCHES "-stdlib=libc\\+\\+")
-    string(APPEND CMAKE_CXX_FLAGS " -stdlib=libc++")
+    string(
+        APPEND CMAKE_CXX_FLAGS
+        " -stdlib=libc++ -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
+    )
 endif()

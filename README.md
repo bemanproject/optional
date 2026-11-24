@@ -135,7 +135,7 @@ optionally configure this project to download a known-compatible release of
 GoogleTest from source and build it as well.
 
 ```shell
-cmake -B build -S . -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./cmake/use-fetch-content.cmake
+cmake -B build -S . -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./infra/cmake/use-fetch-content.cmake
 ```
 
 The precise version of GoogleTest that will be used is maintained in

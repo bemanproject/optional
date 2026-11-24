@@ -122,7 +122,9 @@ function(beman_install_library name)
     endif()
 
     if(NOT BEMAN_INSTALL_DESTINATION)
-        set(BEMAN_INSTALL_DESTINATION "${_config_install_dir}/modules")
+        set(BEMAN_INSTALL_DESTINATION
+            "${CMAKE_INSTALL_DATADIR}/${name}/modules"
+        )
     endif()
 
     string(REPLACE "beman." "" install_component_name "${name}")
@@ -177,8 +179,7 @@ function(beman_install_library name)
             )
             foreach(_install_header_set IN LISTS _available_header_sets)
                 list(
-                    APPEND
-                    _install_header_set_args
+                    APPEND _install_header_set_args
                     FILE_SET
                     "${_install_header_set}"
                     COMPONENT
@@ -211,7 +212,7 @@ function(beman_install_library name)
                 # NOTE: There's currently no convention for this location! CK
                 CXX_MODULES_BMI
                     DESTINATION
-                        ${_config_install_dir}/bmi-${CMAKE_CXX_COMPILER_ID}_$<CONFIG>
+                        ${CMAKE_INSTALL_DATADIR}/${name}/bmi-${CMAKE_CXX_COMPILER_ID}_$<CONFIG>
                     COMPONENT "${install_component_name}_Development"
             )
         else()
