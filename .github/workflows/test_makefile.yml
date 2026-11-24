@@ -75,6 +75,9 @@ jobs:
       - name: Lint
         shell: bash
         run: |
+          # beman-tidy reads the active branch and fails on the detached
+          # HEAD that actions/checkout leaves behind.
+          git switch -C ci-makefile-test
           source .venv/bin/activate
           make lint
       - name: Manual Lint
