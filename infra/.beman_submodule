@@ -1,4 +1,4 @@
 [beman_submodule]
 remote=https://github.com/bemanproject/infra.git
-commit_hash=53a1500400203529bd6bc3c39119501a9f63ebea
+commit_hash=a943c4ae58466260f9b98bfd749aa75f5ad7833b
 allow_untracked_files=True

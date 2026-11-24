@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 set -o nounset
 set -o errexit
@@ -29,7 +30,7 @@ _ME="$(basename "${0}")"
 _print_help() {
     cat <<HEREDOC
 
-Callback script to process CMake Insrumentation data
+Callback script to process CMake Instrumentation data
 https://cmake.org/cmake/help/latest/command/cmake_instrumentation.html
 
 Usage:
